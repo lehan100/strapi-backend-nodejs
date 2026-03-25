@@ -1,0 +1,2 @@
+docker run -it --rm --name my-node18-app -v $(pwd):/app -w /app node:18-alpine sh
+npm run dev

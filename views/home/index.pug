@@ -1,0 +1,203 @@
+extends ../layouts/home
+
+block content
+  main
+    .main-wrapper
+      section.section-home-banner.overflow-hidden
+        .item-banner.relative
+          div(class='img md:img-ratio md:ratio:pt-[960_1920] h-[100dvh] md:h-auto')
+            video(src=data.videoUrl, autoplay='', muted='', loop='', playsinline='')
+          div(class='wrap-content container absolute bottom-0 h-full left-0 md:absolute-center text-white flex items-end pb-20 md:pb-0 md:items-center justify-between z-10')
+            div(class='box-content flex flex-col lg:gap-5 gap-3')
+              h2(class='xl:rem:text-[72px] lg:text-[58px] text-[32px] !font-semibold font-secondary mb-0 leading-tight') Tuyển Dụng Nhân Sự Cấp Cao
+              h3(class='title-32 !font-semibold mb-5')= data.videoTitle
+              a.btn.btn-primary.style-white(href=data.videoButtonLink)
+                span= data.videoButtonText || 'Tìm hiểu thêm'
+                .icon
+            a.box-play-video(href='https://www.youtube.com/watch?v=dQw4w9WgXcQ', data-fancybox='')
+              i.fa-solid.fa-play
+      if data.about
+      section.section-home-about.section-py
+        img.edge.edge-1(src="./img/edge-1-no-noise.png", alt="no-noise", class="edge edge-1")
+        .container
+          div(class='row -md:flex-col-reverse justify-between')
+            div(class='col-lg-7 col-md-6')
+              div(class='flex flex-col gap-base justify-center h-full')
+                h2(class='heading-1')= data.about.title
+                div(class='format-content text-justify body-18 font-semibold')
+                  p= data.about.description
+                a.btn.btn-primary(href=data.about.button_link)
+                  span= data.about.button_text || 'Tìm hiểu thêm'
+                  .icon
+            div(class='col-md-1 -lg:hidden')
+            div(class='col-lg-4 col-md-5')
+              div(class='box-img')
+                img(src=data.about.aboutPhoto, alt=data.about.title)
+      if data.achievements.length > 0
+      session(class='section-home-about-achievement section-py !pt-3 !pb-0')
+        img(src="./img/edge-2.png", alt=""  class="edge edge-1 dark:hidden")
+        img(src="./img/edge-2-darkmode.svg", alt=""  class="edge edge-1 hidden dark:block")
+        .div(class='wrap px-base xl:rem:px-[100px]')
+          .swiper-column-auto.auto-4-column.autoplay
+            .swiper
+              .swiper-wrapper
+               each achievement in data.achievements
+                .swiper-slide
+                  div(class='item-achievement lg:rem:p-[24px] p-5 flex flex-col rem:gap-[30px]')
+                    .img
+                      img.lozad.undefined(data-src=achievement.photoUrl, alt=achievement.title_top || '')
+                    .title.text-right.body-18.font-bold
+                      p= achievement.title_top || null
+                      if achievement.title_bottom
+                        p= achievement.title_bottom
+                    .flex.items-center.justify-between
+                      .number 
+                        span.countup(data-number=achievement.count_up)= achievement.count_up || 0
+                        sup.suffix +
+                      i(class='fa-thin fa-arrow-up-right lg:rem:text-[40px] text-[35px]')
+        if data.human_resources.length > 0
+        section(class='section-home-solution section-py')
+          .container
+            .text-center
+              h2.heading-1.mb-base= data.human_resource_title || 'Giải pháp nhân sự'
+          div(class='wrap px-base xl:rem:px-[100px]')
+            div(class='grid grid-cols-1 md:grid-cols-3 lg:gap-6 gap-[16px]')
+              each human_resource in data.human_resources
+                div(class='item-solution' setBackground="./img/1.jpg")
+                  div(class='flex flex-col gap-6 relative z-5 stretched-link')
+                    div(class='icon')
+                      img.lozad.undefined(data-src=human_resource.photoUrl, alt=human_resource.title)
+                    div(class='wrap-content flex flex-col gap-6')
+                      div(class='title')
+                        a.stretched-link(href='')= human_resource.title 
+                      div(class='content')
+                        p= human_resource.description
+                  a.btn.btn-primary.mt-auto.z-5.relative(href='')
+                    span= data.human_resource_button_text || 'Tìm hiểu thêm'
+                    div(class='icon')
+      section(class='section-home-customer section-py bg-[#F6F6F6] overflow-hidden !pb-0')
+        div(class='section-customer mb-[40px] xl:mb-20')
+          div(class='heading-1 text-center lg:mb-6 mb-[32px]')= data.customer_title || 'Khách hàng của chúng tôi'
+          .wrap-slide-infinity
+            .swiper-column-auto.infinity
+              .swiper
+                .swiper-wrapper
+                  each customer in data.customers
+                    .swiper-slide
+                        .item-logo
+                          img.lozad.undefined(data-src=customer.photoUrl, alt=customer.title)
+        div(class='section-customer-review mb-[20px] md:mb-[40px] xl:mb-20')
+          .heading-1.text-center= data.fedback_title || 'Phản hồi của khách hàng'
+          div(class='wrap-slide-testimonial px-[48px] lg:px-0 lg:rem:max-w-[800px] xl:rem:max-w-[1000px] mx-auto relative')
+            img.edge.edge-1(src="./img/edge-3.png", alt="edge")
+            img.edge.edge-2(src="./img/edge-4.png", alt="edge")
+            .swiper-column-auto.swiper-rewind.relative
+              .swiper
+                .swiper-wrapper
+                  each fedback in data.fedbacks
+                    .swiper-slide
+                      .item-testimonial.flex.flex-col.px-8.py-6.bg-white.rounded-6.shadow-dropshadow-light
+                        .content.body-16
+                          p= fedback.comment
+                        div(class='avatar-name mt-8 pt-8 border-t border-[#DCDCDC] flex items-center gap-6')
+                          div(class='avatar rem:sq-[72px] img-full rounded-full overflow-hidden')
+                            img.lozad.undefined(data-src=fedback.avatarUrl, alt=fedback.author)
+                          .name.flex.flex-col.gap-1
+                            .body-18.font-bold= fedback.author
+                            .body-16.font-light= fedback.regency
+              div(class='wrap-button-slide-custom flex items-center gap-4 justify-center xl:-mt-5')
+                .btn.btn-prev.btn-sw-1
+                .btn.btn-next.btn-sw-1
+      if data.partners.length > 0
+      section(class="section-home-coop section-py xl:mb-[52px]")
+        .container
+          .text-center.heading-1.mb-base= data.partner_title || 'Đối tác của chúng tôi'
+          div(class="grid grid-cols-2 md:grid-cols-4 lg:gap-6 gap-[12px]")
+              each partner in data.partners
+                div(class="item-logo flex-center img-contain border border-neutral-100 lg:rem:h-[124px] h-[64px] lg:p-8 p-4 zoom-img hover:border-primary-1 transition-300")
+                  img.lozad.undefined(data-src=partner.photoUrl, alt=partner.title)
+      if data.posts.length > 0
+      section(class="section-home-news section-py")
+        .container
+          .text-center.heading-1.mb-base= data.post_title || 'Tin tức mới nhất'
+          .wrap-slide-news.mb-base.relative
+            .swiper-column-auto.auto-3-column
+              .swiper
+                .swiper-wrapper
+                  for post in data.posts
+                    .swiper-slide
+                      .item-news.flex.flex-col
+                        a(class='img-ratio ratio:pt-[248_440] rounded-6 zoom-img' href='')
+                          img.lozad.undefined(data-src=post.photoUrl, alt=post.title)
+                        .content.flex.flex-col
+                          .date-cate.flex.items-center.pt-4.pb-3
+                            .date.body-16
+                              i.fa-light.fa-calendar.mr-2
+                              span= post.publishedAt
+                            div(class='dot rem:sq-[4px] bg-neutral-950 rounded-full mx-2 flex-shrink-0') 
+                            .cate.body-16.text-primary-1= post.category.name
+                        div(class='title lg:text-xl text-[20px] font-semibold line-clamp-2 leading-snug mb-2')
+                          a(href= "/posts/" + post.slug)= post.name
+                        .content.body-16.line-clamp-2= post.description
+              div(class='wrap-button-slide -md:hidden')
+                .btn.btn-prev.btn-sw-1
+                .btn.btn-next.btn-sw-1
+      if data.events.length > 0
+      section(class="section-home-event section-py bg-[#F6F6F6]")
+        .container
+          .text-center.heading-1.mb-base= data.event_title || 'Sự kiện sắp diễn ra'
+          .wrap-slide.relative
+            .swiper-column-auto
+              .swiper
+                .swiper-wrapper
+                  for event in data.events
+                    .swiper-slide
+                      div(class='item-event grid md:grid-cols-2 rounded-6 overflow-hidden')
+                        div(class='item-event-img img img-ratio pt-[75%] lg:ratio:pt-[480_700]')
+                          img.lozad.undefined(data-src=event.photoUrl, alt=event.title)
+                        div(class='item-event-content flex flex-col xl:p-15 lg:p-10 md:p-6 bg-neutral-100 md:items-end md:text-right xl:gap-6 md:gap-3 xl:pl-20 gap-[20px] p-[24px]')
+                          div(class='date-event flex items-center py-1 xl:rem:h-[64px] px-6 gap-2 rounded-3 bg-neutral-200 text-primary-1 w-fit')
+                            div(class='lg:rem:text-[40px] text-[26px] font-bold font-secondary number')= event.eventDay
+                            .wrap-date.flex.flex-col.leading-none.items-start.text-left
+                              p(class='lg:rem:text-[12px] text-[9px] month')= event.eventMonthText
+                              p(class='lg:body-16 text-[13px] font-bold')= event.eventYear
+                          div(class='flex items-center md:text-[14px] body-18 xl:rem:text-[18px]')
+                            p Payroll
+                            div(class='dot rem:sq-[4px] rounded-full bg-neutral-950 mx-2')
+                            p.event-time= event.eventStatusText || ''
+                          div(class='heading-1 xl:rem:text-[40px] lg:text-[30px] md:text-[20px] text-[21px] leading-tight')= event.title
+                          div(class='flex md:items-center lg:text-[14px] md:text-[12px] xl:rem:text-[18px] text-[14px ] -md:flex-col gap-y-3')
+                            p.date
+                              i.fa-solid.fa-clock.mr-2
+                              | Thời gian: #{event.event_time}
+                            div(class='line h-full mx-2 lg:mx-6 w-[1px] bg-[#818181] -md:hidden')
+                            p.location
+                              i.fa-solid.fa-location-dot.mr-2
+                              | Địa điểm: #{event.event_location}
+                          a.btn.btn-primary.mt-auto(href='/events/' + event.slug)
+                            span Đăng ký tham gia
+                            .icon
+              .wrap-button-slide
+                .btn.btn-prev.btn-sw-1
+                .btn.btn-next.btn-sw-1
+            div(class='flex-center mt-[32px] md:hidden')
+              .btn.btn-primary.mt-auto
+                span Đăng ký tham gia
+                .icon
+      if data.videos.length > 0
+      section.section-home-video.section-py
+        .container
+          .text-center.heading-1.mb-base= data.video_title || ''
+          div(class="grid md:grid-cols-2 lg:gap-base gap-[24px]")
+            each video in data.videos
+              a.item-video.flex.flex-col(href= "/videos/" + video.slug)
+                .img-wrap.relative
+                  div(class="img img-ratio ratio:pt-[380_676] rounded-5")
+                    img.lozad.undefined(data-src=video.photoUrl, alt=video.name)
+                  .btn-video.center
+                    i.fa-solid.fa-play
+                .content.flex.flex-col.py-5.text-center
+                  .title.title-24.font-bold= video.name
+                  .body-18= video.description
+        .big-text HR2B
+

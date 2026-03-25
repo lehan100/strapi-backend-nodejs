@@ -1,0 +1,14 @@
+{
+  "watch": [
+    "app",
+    "views",
+    "config",
+    "app.js"
+  ],
+  "ext": "js,pug,json",
+  "ignore": [
+    "public/*",
+    "node_modules/*"
+  ],
+  "exec": "node app.js"
+}

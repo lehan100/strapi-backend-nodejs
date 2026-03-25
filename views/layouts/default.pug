@@ -1,0 +1,10 @@
+doctype html
+html(lang='en')
+  include partials/head.pug
+  body
+    include partials/header.pug
+    block content
+    include partials/footer.pug
+    script(src='/js/core.min.js')
+    script(src='https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js')
+    script(src='/js/main.min.js')

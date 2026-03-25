@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" href="">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&amp;family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;family=Reddit+Sans:ital,wght@0,200..900;1,200..900&amp;display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="./css/core.min.css">
+		<link rel="stylesheet" href="./css/main.min.css">
+		<title></title>
+	</head>
+	<body class="single-page">
+		<header>
+			<div class="container">
+				<nav><a class="header-logo"><img src="./img/logo.png" alt=""></a>
+					<div class="header-right">
+						<div class="header-search-button lg:hidden"> <i class="fa-light fa-magnifying-glass text-[16px] text-white"></i></div>
+						<div class="header-search -lg:!hidden">
+							<input type="text" placeholder="Tìm kiếm">
+							<button type="submit"><i class="fa-regular fa-magnifying-glass"></i></button>
+						</div>
+						<div class="header-contact-button btn btn-primary -lg:!hidden" data-fancybox data-src="#popup-contact"><span>Liên hệ</span></div>
+						<div class="header-user"> <i class="fa-light fa-circle-user"></i></div>
+						<div class="header-language -lg:hidden">
+							<div class="wpml-ls">
+								<ul> 
+									<li class="wpml-ls-item"><a href=""> <span class="wpml-ls-native">VN</span></a></li>
+									<li class="wpml-ls-item"><a href=""> <span class="wpml-ls-native">VN</span></a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="header-hambuger"><span></span><span></span><span></span></div>
+					</div>
+				</nav>
+			</div>
+			<div class="header-pane-mobile">
+				<div class="header-top lg:hidden ml-auto flex items-center gap-[8px] justify-end">
+					<div class="header-search"><i class="fa-light fa-magnifying-glass text-[16px] text-primary-1"></i></div>
+					<div class="header-user"><i class="fa-light fa-circle-user"></i></div>
+					<div class="header-language">
+						<div class="wpml-ls">
+							<ul> 
+								<li class="wpml-ls-item"><a href=""> <span class="wpml-ls-native">VN</span></a></li>
+								<li class="wpml-ls-item"><a href=""> <span class="wpml-ls-native">VN</span></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="header-hambuger"><span></span><span></span><span></span></div>
+				</div>
+				<div class="header-logo -lg:hidden mb-6"><a class="logo"><img src="./img/logo.png" alt="">
+						<div class="content"> 
+							<p>Uniting Talent</p>
+							<p>with Opportunity</p>
+						</div></a></div>
+				<div class="header-menu-list">
+					<ul> 
+						<li class="current"><a href=""> <i class="fa-light fa-house"></i><span>Trang chủ</span></a></li>
+						<li> <a href=""> <i class="fa-light fa-house"></i><span>Về chúng tôi</span></a></li>
+						<li> <a href=""> <i class="fa-light fa-briefcase"></i><span>Giải pháp nhân sự</span></a>
+							<ul> 
+								<li> <a href="">Giải pháp nhân sự</a></li>
+							</ul>
+						</li>
+						<li> <a href=""> <i class="fa-light fa-house"></i><span>Về chúng tôi</span></a></li>
+						<li> <a href=""> <i class="fa-light fa-house"></i><span>Về chúng tôi</span></a></li>
+						<li> <a href=""> <i class="fa-light fa-house"></i><span>Về chúng tôi</span></a></li>
+					</ul>
+				</div>
+				<div class="header-pane-toggle flex items-center justify-between gap-2">
+					<div class="btn-toggle"> 
+						<div class="icon"> <img class="sun" src="./img/sun.svg" alt=""><img class="moon" src="./img/moon.svg" alt=""></div>
+					</div>
+					<div class="header-contact-button btn btn-primary lg:hidden" data-fancybox data-src="#popup-contact"><span>Liên hệ</span></div>
+				</div>
+			</div>
+		</header>
+		<div class="header-search-form">
+			<div class="close flex items-center justify-center absolute top-0 right-0 bg-white text-3xl cursor-pointer w-12.5 h-12.5"><i class="fa-light fa-xmark"></i></div>
+			<div class="container">
+				<div class="wrap-form-search-product">
+					<div class="productsearchbox">
+						<input type="text" placeholder="Bộ ghế sofa 2022">
+						<button></button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<main>
+			<section class="global-breadcrumb">
+				<div class="container">
+					<nav class="rank-math-breadcrumb" aria-label="breadcrumbs">
+						<p><a href="https://oracle.webcanhcam.vn">Trang chủ</a><span class="separator"> | </span><span class="last">Về chúng tôi</span></p>
+					</nav>
+				</div>
+			</section>
+			<section class="section-news-detail section-py-min">
+				<div class="container"> 
+					<div class="row"> 
+						<div class="col-lg-8">
+							<div class="flex flex-col lg:gap-6 gap-[24px] lg:mb-8 mb-5">
+								<h1 class="news-title heading-1">Chi phí ẩn trong quản lý lương nội bộ: Những con số doanh nghiệp cần biết</h1>
+								<div class="date-cate flex items-center">
+									<div class="date body-16"> <i class="fa-light fa-calendar mr-2"></i><span>06/06/2025</span></div>
+									<div class="dot rem:sq-[4px] bg-neutral-950 rounded-full mx-2 flex-shrink-0"></div>
+									<div class="cate body-16 text-primary-1">Tin tức</div>
+								</div>
+								<div class="share">
+									<ul class="flex items-center gap-[24px] lg:gap-6"> 
+										<li> <a href=""> <img src="./img/social-2/facebook.svg" alt=""></a></li>
+										<li> <a href=""> <img src="./img/social-2/linked-in.svg" alt=""></a></li>
+										<li> <a href=""> <img src="./img/social-2/zalo.svg" alt=""></a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="format-content body-18">
+								<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste, quibusdam minima voluptate a sapiente, debitis tempore, exercitationem animi ea sequi nesciunt. Repellat, assumenda fugiat corporis quasi itaque molestias quas doloremque!</p>
+								<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste, quibusdam minima voluptate a sapiente, debitis tempore, exercitationem animi ea sequi nesciunt. Repellat, assumenda fugiat corporis quasi itaque molestias quas doloremque!</p>
+								<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste, quibusdam minima voluptate a sapiente, debitis tempore, exercitationem animi ea sequi nesciunt. Repellat, assumenda fugiat corporis quasi itaque molestias quas doloremque!</p>
+								<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste, quibusdam minima voluptate a sapiente, debitis tempore, exercitationem animi ea sequi nesciunt. Repellat, assumenda fugiat corporis quasi itaque molestias quas doloremque!</p>
+								<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste, quibusdam minima voluptate a sapiente, debitis tempore, exercitationem animi ea sequi nesciunt. Repellat, assumenda fugiat corporis quasi itaque molestias quas doloremque!</p><img class="lozad undefined" data-src="./img/1.jpg" alt=""/>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="wrap-box-news sticky top-[var(--header-height)]">
+								<div class="title-32 lg:mb-5 mb-[20px] font-bold">Bài viết xem nhiều</div>
+								<div class="lg:gap-8 gap-[32px] lg:flex lg:flex-col md:grid md:grid-cols-2 flex flex-col">
+									<div class="item-news-feature flex gap-3 group">
+										<div class="img w-[37.37%]"><a class="img-ratio ratio:pt-[80_134] rounded-4 zoom-img"><img class="lozad undefined" data-src="./img/1.jpg" alt=""/></a></div>
+										<div class="content flex-1 flex flex-col justify-between">
+											<div class="date-cate flex items-center">
+												<div class="date body-14"> <i class="fa-light fa-calendar mr-2"></i><span>06/06/2025</span></div>
+											</div>
+											<div class="title body-18 font-semibold line-clamp-2 leading-snug group-hover:text-primary-1"><a>Cách gen Z chọn việc làm và những sai lầm khi tuyển dụng</a></div>
+										</div>
+									</div>
+									<div class="item-news-feature flex gap-3 group">
+										<div class="img w-[37.37%]"><a class="img-ratio ratio:pt-[80_134] rounded-4 zoom-img"><img class="lozad undefined" data-src="./img/1.jpg" alt=""/></a></div>
+										<div class="content flex-1 flex flex-col justify-between">
+											<div class="date-cate flex items-center">
+												<div class="date body-14"> <i class="fa-light fa-calendar mr-2"></i><span>06/06/2025</span></div>
+											</div>
+											<div class="title body-18 font-semibold line-clamp-2 leading-snug group-hover:text-primary-1"><a>Cách gen Z chọn việc làm và những sai lầm khi tuyển dụng</a></div>
+										</div>
+									</div>
+									<div class="item-news-feature flex gap-3 group">
+										<div class="img w-[37.37%]"><a class="img-ratio ratio:pt-[80_134] rounded-4 zoom-img"><img class="lozad undefined" data-src="./img/1.jpg" alt=""/></a></div>
+										<div class="content flex-1 flex flex-col justify-between">
+											<div class="date-cate flex items-center">
+												<div class="date body-14"> <i class="fa-light fa-calendar mr-2"></i><span>06/06/2025</span></div>
+											</div>
+											<div class="title body-18 font-semibold line-clamp-2 leading-snug group-hover:text-primary-1"><a>Cách gen Z chọn việc làm và những sai lầm khi tuyển dụng</a></div>
+										</div>
+									</div>
+									<div class="item-news-feature flex gap-3 group">
+										<div class="img w-[37.37%]"><a class="img-ratio ratio:pt-[80_134] rounded-4 zoom-img"><img class="lozad undefined" data-src="./img/1.jpg" alt=""/></a></div>
+										<div class="content flex-1 flex flex-col justify-between">
+											<div class="date-cate flex items-center">
+												<div class="date body-14"> <i class="fa-light fa-calendar mr-2"></i><span>06/06/2025</span></div>
+											</div>
+											<div class="title body-18 font-semibold line-clamp-2 leading-snug group-hover:text-primary-1"><a>Cách gen Z chọn việc làm và những sai lầm khi tuyển dụng</a></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="section-related-news section-py-min bg-neutral-50">
+				<div class="container"> 
+					<div class="title-32 mb-base font-bold">Cập nhật thông tin mới nhất</div>
+					<div class="wrap-slide-news mb-base relative">
+						<div class="swiper-column-auto auto-3-column">
+							<div class="swiper">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide">
+										<div class="item-news flex flex-col"><a class="img-ratio ratio:pt-[248_440] rounded-6 zoom-img"><img class="lozad undefined" data-src="./img/1.jpg" alt=""/></a>
+											<div class="content flex flex-col">
+												<div class="date-cate flex items-center pt-4 pb-3">
+													<div class="date body-16"> <i class="fa-light fa-calendar mr-2"></i><span>06/06/2025</span></div>
+													<div class="dot rem:sq-[4px] bg-neutral-950 rounded-full mx-2 flex-shrink-0"></div>
+													<div class="cate body-16 text-primary-1">Tin tức</div>
+												</div>
+												<div class="title lg:text-xl text-[20px] font-semibold line-clamp-2 leading-snug mb-2"><a href="">Cách gen Z chọn việc làm và những sai lầm khi tuyển dụng</a></div>
+												<div class="content body-16 line-clamp-2"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.</div>
+											</div>
+										</div>
+									</div>
+									<div class="swiper-slide">
+										<div class="item-news flex flex-col"><a class="img-ratio ratio:pt-[248_440] rounded-6 zoom-img"><img class="lozad undefined" data-src="./img/1.jpg" alt=""/></a>
+											<div class="content flex flex-col">
+												<div class="date-cate flex items-center pt-4 pb-3">
+													<div class="date body-16"> <i class="fa-light fa-calendar mr-2"></i><span>06/06/2025</span></div>
+													<div class="dot rem:sq-[4px] bg-neutral-950 rounded-full mx-2 flex-shrink-0"></div>
+													<div class="cate body-16 text-primary-1">Tin tức</div>
+												</div>
+												<div class="title lg:text-xl text-[20px] font-semibold line-clamp-2 leading-snug mb-2"><a href="">Cách gen Z chọn việc làm và những sai lầm khi tuyển dụng</a></div>
+												<div class="content body-16 line-clamp-2"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.</div>
+											</div>
+										</div>
+									</div>
+									<div class="swiper-slide">
+										<div class="item-news flex flex-col"><a class="img-ratio ratio:pt-[248_440] rounded-6 zoom-img"><img class="lozad undefined" data-src="./img/1.jpg" alt=""/></a>
+											<div class="content flex flex-col">
+												<div class="date-cate flex items-center pt-4 pb-3">
+													<div class="date body-16"> <i class="fa-light fa-calendar mr-2"></i><span>06/06/2025</span></div>
+													<div class="dot rem:sq-[4px] bg-neutral-950 rounded-full mx-2 flex-shrink-0"></div>
+													<div class="cate body-16 text-primary-1">Tin tức</div>
+												</div>
+												<div class="title lg:text-xl text-[20px] font-semibold line-clamp-2 leading-snug mb-2"><a href="">Cách gen Z chọn việc làm và những sai lầm khi tuyển dụng</a></div>
+												<div class="content body-16 line-clamp-2"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.</div>
+											</div>
+										</div>
+									</div>
+									<div class="swiper-slide">
+										<div class="item-news flex flex-col"><a class="img-ratio ratio:pt-[248_440] rounded-6 zoom-img"><img class="lozad undefined" data-src="./img/1.jpg" alt=""/></a>
+											<div class="content flex flex-col">
+												<div class="date-cate flex items-center pt-4 pb-3">
+													<div class="date body-16"> <i class="fa-light fa-calendar mr-2"></i><span>06/06/2025</span></div>
+													<div class="dot rem:sq-[4px] bg-neutral-950 rounded-full mx-2 flex-shrink-0"></div>
+													<div class="cate body-16 text-primary-1">Tin tức</div>
+												</div>
+												<div class="title lg:text-xl text-[20px] font-semibold line-clamp-2 leading-snug mb-2"><a href="">Cách gen Z chọn việc làm và những sai lầm khi tuyển dụng</a></div>
+												<div class="content body-16 line-clamp-2"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.</div>
+											</div>
+										</div>
+									</div>
+									<div class="swiper-slide">
+										<div class="item-news flex flex-col"><a class="img-ratio ratio:pt-[248_440] rounded-6 zoom-img"><img class="lozad undefined" data-src="./img/1.jpg" alt=""/></a>
+											<div class="content flex flex-col">
+												<div class="date-cate flex items-center pt-4 pb-3">
+													<div class="date body-16"> <i class="fa-light fa-calendar mr-2"></i><span>06/06/2025</span></div>
+													<div class="dot rem:sq-[4px] bg-neutral-950 rounded-full mx-2 flex-shrink-0"></div>
+													<div class="cate body-16 text-primary-1">Tin tức</div>
+												</div>
+												<div class="title lg:text-xl text-[20px] font-semibold line-clamp-2 leading-snug mb-2"><a href="">Cách gen Z chọn việc làm và những sai lầm khi tuyển dụng</a></div>
+												<div class="content body-16 line-clamp-2"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer class="section-py xl:rem:py-[60px] bg-neutral-800">
+			<div class="container"> 
+				<div class="footer-top flex items-center justify-between mb-8 pb-8 border-b border-neutral-500 text-white"> 
+					<div class="footer-logo"> <img src="./img/logo.png" alt=""></div>
+							<div class="footer-menu flex-1 xl:rem:mx-[63px] mx-5 -lg:hidden"> 
+								<ul>
+									<li> <a href="">Giải pháp</a></li>
+									<li> <a href="">Giải pháp</a></li>
+									<li> <a href="">Giải pháp</a></li>
+									<li> <a href="">Giải pháp</a></li>
+									<li> <a href="">Giải pháp</a></li>
+									<li> <a href="">Giải pháp</a></li>
+								</ul>
+							</div>
+							<div class="footer-social  -lg:hidden">
+								<ul> 
+									<li> <a href=""> <i class="fa-brands fa-youtube"></i></a></li>
+									<li> <a href=""> <i class="fa-brands fa-facebook-f"></i></a></li>
+									<li> <a href=""> <i class="fa-brands fa-linkedin-in"></i></a></li>
+									<li> <a href=""> <img src="./img/zalo.svg" alt=""></a></li>
+									<li> <a href=""> <i class="fa-brands fa-tiktok"></i></a></li>
+								</ul>
+							</div>
+							<div class="footer-certs flex items-center lg:gap-6 gap-base justify-end footer-mobile">
+								<div class="item-cert"><img class="lozad undefined" data-src="./img/1.png" alt=""/>
+								</div>
+							</div>
+				</div>
+						<div class="footer-menu flex-1 xl:rem:mx-[63px] mx-5 lg:hidden footer-mobile"> 
+							<ul>
+								<li> <a href="">Giải pháp</a></li>
+								<li> <a href="">Giải pháp</a></li>
+								<li> <a href="">Giải pháp</a></li>
+								<li> <a href="">Giải pháp</a></li>
+								<li> <a href="">Giải pháp</a></li>
+								<li> <a href="">Giải pháp</a></li>
+							</ul>
+						</div>
+				<div class="footer-bottom mb-base lg:mb-6">
+					<div class="row gap-y-0 justify-between">
+						<div class="col-lg-4">
+							<div class="footer-address"> 
+								<div class="footer-title mb-3">Hồ Chí Minh</div>
+								<div class="footer-content"> 
+									<p>Lầu 1, Tòa nhà Thiên Sơn, Số 5 Nguyễn Gia Thiều, Quận 3, TP. Hồ Chí Minh, Việt Nam</p>
+									<ul> 
+										<li> <a href=""> <i class="fa-light fa-phone"></i>
+												<p>+84 28 6288 3888</p></a></li>
+										<li> <a href=""> <i class="fa-light fa-fax"></i>
+												<p>+84 28 6288 3888</p></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<div class="footer-form-wrap">
+								<div class="footer-title mb-6">Đăng ký để nhận những thông tin, sự kiện mới nhất từ chúng tôi ngay hôm nay.</div>
+								<div class="footer-form">
+									<input type="text" placeholder="Địa chỉ Email">
+									<button> <i class="fa-solid fa-send"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+						<div class="footer-certs flex items-center lg:gap-6 gap-base justify-end -lg:hidden mb-base lg:mb-0">
+							<div class="item-cert"><img class="lozad undefined" data-src="./img/1.png" alt=""/>
+							</div>
+						</div>
+				<div class="footer-copyright flex items-end justify-between flex-wrap gap-y-5">
+					<div class="content"> 
+						<p>© 2025 HR2B. All Rights Reserved.</p>
+						<p class="text-neutral-500">Thiết kế web bởi Cánh Cam. </p>
+					</div>
+							<div class="footer-social  footer-mobile">
+								<ul> 
+									<li> <a href=""> <i class="fa-brands fa-youtube"></i></a></li>
+									<li> <a href=""> <i class="fa-brands fa-facebook-f"></i></a></li>
+									<li> <a href=""> <i class="fa-brands fa-linkedin-in"></i></a></li>
+									<li> <a href=""> <img src="./img/zalo.svg" alt=""></a></li>
+									<li> <a href=""> <i class="fa-brands fa-tiktok"></i></a></li>
+								</ul>
+							</div>
+					<div class="copyright-link -lg:w-full">
+						<ul class="flex items-center -lg:justify-between w-full lg:gap-4">
+							<li> <a href="">Điều khoản sử dụng</a></li>
+							<li> <a href="">Chính sách bảo mật</a></li>
+							<li> <a href="">Quyền riêng tư</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<div class="hidden"> 
+			<div class="popup-style-general" id="popup-contact">
+				<div class="popup-title">Tư vấn liên hệ</div>
+				<div class="popup-content">
+					<div class="form-contact form-style-general"> 
+						<div class="form-group col-span-form">
+							<div class="wrap flex items-center flex-col md:flex-row md:gap-3 gap-[16px]">
+								<label>Bạn là?</label>
+								<div class="checkbox-group"> 
+									<div class="form-checkbox">
+										<label>
+											<input type="radio" name="user-type" value="candidate"><span>Ứng viên</span>
+										</label>
+									</div>
+									<div class="form-checkbox">
+										<label>
+											<input type="radio" name="user-type" value="client"><span>Khách hàng</span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<input type="text" name="fullname" placeholder="Họ và tên" required>
+						</div>
+						<div class="form-group">
+							<input type="text" name="company" placeholder="Tên công ty">
+						</div>
+						<div class="form-group">
+							<input type="tel" name="phone" placeholder="Số điện thoại" required>
+						</div>
+						<div class="form-group">
+							<input type="email" name="email" placeholder="Email" required>
+						</div>
+						<div class="form-group col-span-form">
+							<textarea name="requirements" rows="4" placeholder="Yêu cầu của bạn"></textarea>
+						</div>
+						<div class="form-group col-span-form">
+							<div class="form-checkbox term">
+								<label>
+									<input type="checkbox" name="agree-terms" required>
+									<p> <span>Tôi đồng ý với </span><a href="#">Điều kiện điều khoản</a><span> và </span><a href="#">Chính sách bảo mật</a><span> của HR2B.</span></p>
+								</label>
+							</div>
+						</div>
+						<div class="flex-center col-span-form">
+							<button class="btn btn-primary" type="submit"><span>Đăng ký ngay</span>
+								<div class="icon custom-icon"><i class="fa-light fa-pen"></i></div>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-tool-fixed"> 
+			<div class="tool button-to-top">
+				<div class="button"> <i class="fa-light fa-arrow-up"></i></div>
+			</div>
+			<div class="tool">
+				<div class="button"> <i class="fa-light fa-pen-to-square"></i></div>
+				<div class="content">Contact Us</div>
+			</div>
+			<div class="tool">
+				<div class="button"> 
+					<svg xmlns="http://www.w3.org/2000/svg" width="27" height="30" viewBox="0 0 27 30" fill="none">
+						<path d="M13.0002 15.9998C8.77354 15.9998 5.33354 12.5598 5.33354 8.33317C5.33354 4.1065 8.77354 0.666504 13.0002 0.666504C17.2269 0.666504 20.6669 4.1065 20.6669 8.33317C20.6669 12.5598 17.2269 15.9998 13.0002 15.9998ZM13.0002 2.6665C9.88021 2.6665 7.33354 5.21317 7.33354 8.33317C7.33354 11.4532 9.88021 13.9998 13.0002 13.9998C16.1202 13.9998 18.6669 11.4532 18.6669 8.33317C18.6669 5.21317 16.1202 2.6665 13.0002 2.6665ZM1.54688 29.3332C1.00021 29.3332 0.546875 28.8798 0.546875 28.3332C0.546875 22.6398 6.13354 17.9998 13.0002 17.9998C13.5469 17.9998 14.0002 18.4532 14.0002 18.9998C14.0002 19.5465 13.5469 19.9998 13.0002 19.9998C7.24021 19.9998 2.54687 23.7332 2.54687 28.3332C2.54687 28.8798 2.09354 29.3332 1.54688 29.3332ZM21.2669 28.5332C18.3602 28.5332 16.0002 26.1732 16.0002 23.2665C16.0002 20.3598 18.3602 17.9998 21.2669 17.9998C24.1735 17.9998 26.5335 20.3598 26.5335 23.2665C26.5335 26.1732 24.1735 28.5332 21.2669 28.5332ZM21.2669 19.9998C19.4669 19.9998 18.0002 21.4665 18.0002 23.2665C18.0002 25.0665 19.4669 26.5332 21.2669 26.5332C23.0669 26.5332 24.5335 25.0665 24.5335 23.2665C24.5335 21.4665 23.0669 19.9998 21.2669 19.9998Z" fill="white"></path>
+					</svg>
+				</div>
+				<div class="content">Job Seeker</div>
+			</div>
+			<div class="tool">
+				<div class="button"> <i class="fa-light fa-plus"></i></div>
+				<div class="content">
+					<ul class="social">
+						<li>	<a href=""> <img src="./img/facebook-messenger.png" alt=""></a></li>
+						<li>	<a href=""> <img src="./img/facebook-messenger.png" alt=""></a></li>
+						<li>	<a href=""> <img src="./img/facebook-messenger.png" alt=""></a></li>
+						<li>	<a href=""> <img src="./img/facebook-messenger.png" alt=""></a></li>
+						<li>	<a href=""> <img src="./img/facebook-messenger.png" alt=""></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script src="./js/core.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+		<script src="./js/main.min.js"></script>
+	</body>
+</html>

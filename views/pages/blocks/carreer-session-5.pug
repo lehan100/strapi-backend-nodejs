@@ -1,0 +1,13 @@
+- const careerSession5Block = block || {};
+- const careerSession5Items = Array.isArray(careerSession5Block.items) ? careerSession5Block.items : [];
+if careerSession5Items.length > 0
+  section.section-career.section-gallery.section-py-min(class='!pt-0')
+    .container
+      .title-32.mb-base.font-bold.font-secondary.text-center= careerSession5Block.title || ''
+      .grid.grid-cols-2(class='lg:grid-cols-3 gap-[4px] lg:gap-5')
+        each item in careerSession5Items
+          - const imageUrl = (item && item.photoUrl) ? item.photoUrl : '';
+          - const imageAlt = (item && item.title) ? item.title : '';
+          if imageUrl == ''
+          a.img.img-ratio.zoom-img.rounded-1(class='ratio:pt-[137_177]' data-fancybox='' href=imageUrl)
+            img.lozad.undefined(data-src=imageUrl alt=imageAlt)

@@ -1,0 +1,66 @@
+.hidden
+  .popup-style-general#popup-contact
+    .popup-title= _('Tư vấn liên hệ')
+    .popup-content
+      form.form-contact.form-style-general(method='post', action='/contact/submit')
+        input(type='hidden', name='source', value='popup_contact')
+        .form-group.col-span-form
+          div(class='wrap flex items-center flex-col md:flex-row md:gap-3 gap-[16px]')
+            label= _('Bạn là?')
+            .checkbox-group
+              .form-checkbox
+                label
+                  input(type='radio', name='user-type', value='candidate')
+                  span= _('Ứng viên')
+              .form-checkbox
+                label
+                  input(type='radio', name='user-type', value='client')
+                  span= _('Khách hàng')
+        .form-group
+          input(type='text', name='fullname', placeholder=_('Họ và tên'), required='')
+        .form-group
+          input(type='text', name='company', placeholder=_('Tên công ty'))
+        .form-group
+          input(type='tel', name='phone', placeholder=_('Số điện thoại'), required='')
+        .form-group
+          input(type='email', name='email', placeholder=_('Email'), required='')
+        .form-group.col-span-form
+          textarea(name='requirements', rows='4', placeholder=_('Yêu cầu của bạn'))
+        .form-group.col-span-form
+          .form-checkbox.term
+            label
+              input(type='checkbox', name='agree-terms', required='')
+              p
+                span= _('Tôi đồng ý với ')
+                a(href=(termsLink || '#'))= _('Điều khoản sử dụng')
+                span= _(' và ')
+                a(href=(privacyLink || '#'))= _('Chính sách bảo mật')
+                span= _(' của HR2B.')
+        .flex-center.col-span-form
+          button.btn.btn-primary(type='submit')
+            span= _('Đăng ký ngay')
+            .icon.custom-icon
+              i.fa-light.fa-pen
+
+.footer-tool-fixed
+  .tool.button-to-top
+    .button
+      i.fa-light.fa-arrow-up
+  .tool
+    .button
+      i.fa-light.fa-pen-to-square
+    .content= _('Liên hệ')
+  .tool
+    .button
+      svg(xmlns='http://www.w3.org/2000/svg', width='27', height='30', viewBox='0 0 27 30', fill='none')
+        path(d='M13.0002 15.9998C8.77354 15.9998 5.33354 12.5598 5.33354 8.33317C5.33354 4.1065 8.77354 0.666504 13.0002 0.666504C17.2269 0.666504 20.6669 4.1065 20.6669 8.33317C20.6669 12.5598 17.2269 15.9998 13.0002 15.9998ZM13.0002 2.6665C9.88021 2.6665 7.33354 5.21317 7.33354 8.33317C7.33354 11.4532 9.88021 13.9998 13.0002 13.9998C16.1202 13.9998 18.6669 11.4532 18.6669 8.33317C18.6669 5.21317 16.1202 2.6665 13.0002 2.6665ZM1.54688 29.3332C1.00021 29.3332 0.546875 28.8798 0.546875 28.3332C0.546875 22.6398 6.13354 17.9998 13.0002 17.9998C13.5469 17.9998 14.0002 18.4532 14.0002 18.9998C14.0002 19.5465 13.5469 19.9998 13.0002 19.9998C7.24021 19.9998 2.54687 23.7332 2.54687 28.3332C2.54687 28.8798 2.09354 29.3332 1.54688 29.3332ZM21.2669 28.5332C18.3602 28.5332 16.0002 26.1732 16.0002 23.2665C16.0002 20.3598 18.3602 17.9998 21.2669 17.9998C24.1735 17.9998 26.5335 20.3598 26.5335 23.2665C26.5335 26.1732 24.1735 28.5332 21.2669 28.5332ZM21.2669 19.9998C19.4669 19.9998 18.0002 21.4665 18.0002 23.2665C18.0002 25.0665 19.4669 26.5332 21.2669 26.5332C23.0669 26.5332 24.5335 25.0665 24.5335 23.2665C24.5335 21.4665 23.0669 19.9998 21.2669 19.9998Z', fill='white')
+    .content= _('Ứng viên')
+  .tool
+    .button
+      i.fa-light.fa-plus
+    .content
+      ul.social
+        each _ in [1,2,3,4,5]
+          li
+            a(href='')
+              img(src='/img/facebook-messenger.png', alt='')

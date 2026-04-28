@@ -1,4 +1,106 @@
 extends ../layouts/default
 
 block content
-  h1 Detail
+  -
+    var __ = (typeof _ === 'function') ? _ : function (s) { return s; };
+    var pageTitle = (post && post.name) ? post.name : __('Tin tức');
+    var categoryTitle = (post && post.categoryName) ? post.categoryName : __('Tin tức');
+    var categoryUrl = (post && post.categorySlug) ? ('/category/' + post.categorySlug) : '';
+    var breadcrumbItems = [{ name: categoryTitle, url: categoryUrl }, { name: pageTitle, url: '' }];
+    var hotPostItems = Array.isArray(hotPosts) ? hotPosts : [];
+    var relatedPostItems = Array.isArray(relatedPosts) ? relatedPosts : [];
+    var formatDate = function (dateValue) {
+      if (!dateValue) return '';
+      var d = new Date(dateValue);
+      if (Number.isNaN(d.getTime())) return '';
+      var day = String(d.getDate()).padStart(2, '0');
+      var month = String(d.getMonth() + 1).padStart(2, '0');
+      var year = d.getFullYear();
+      return day + '/' + month + '/' + year;
+    };
+    var sanitizePostContent = function (html) {
+      if (typeof html !== 'string') return '';
+      return html
+        .replace(/<p>(?:\s|&nbsp;|&#160;|<br\s*\/?>)*<\/p>/gi, '')
+        .trim();
+    };
+    var renderedPostContent = sanitizePostContent(post && post.content);
+
+  main
+    section.global-breadcrumb
+      .container
+        include ../pages/blocks/breadcrumb
+
+    section.section-news-detail.section-py-min
+      .container
+        .row
+          .col-lg-8
+            .flex.flex-col(class='lg:gap-6 gap-[24px] lg:mb-8 mb-5')
+              h1.news-title.heading-1= pageTitle
+              .date-cate.flex.items-center
+                .date.body-16
+                  i.fa-light.fa-calendar.mr-2
+                  span= formatDate(post && post.createdAt)
+                .dot.bg-neutral-950.rounded-full.mx-2.flex-shrink-0(class='rem:sq-[4px]')
+                .cate.body-16.text-primary-1= (post && post.categoryName) ? post.categoryName : __('Tin tức')
+              .share
+                ul.flex.items-center(class='gap-[24px] lg:gap-6')
+                  li
+                    a(href='#')
+                      img(src='/img/social-2/facebook.svg', alt='Facebook')
+                  li
+                    a(href='#')
+                      img(src='/img/social-2/linked-in.svg', alt='LinkedIn')
+                  li
+                    a(href='#')
+                      img(src='/img/social-2/zalo.svg', alt='Zalo')
+
+            .format-content.body-18
+              if renderedPostContent
+                != renderedPostContent
+              else
+                .rounded-4.border.border-neutral-200.bg-neutral-50.p-4.text-center
+                  p.body-16.font-semibold= __('Chưa có dữ liệu.')
+                  p.body-14.text-neutral-500.mt-1= __('Vui lòng quay lại sau để xem thêm bài viết.')
+
+          .col-lg-4
+            if hotPostItems.length > 0
+            .wrap-box-news.sticky(class='top-[var(--header-height)]')
+              .title-32.font-bold(class='lg:mb-5 mb-[20px]')= __('Bài viết xem nhiều')
+              .flex.flex-col(class='lg:flex lg:flex-col md:grid md:grid-cols-2 lg:gap-8 gap-[32px]')
+                  each hot in hotPostItems
+                    .item-news-feature.flex.gap-3.group
+                      .img(class='w-[37.37%]')
+                        a.img-ratio.rounded-4.zoom-img(class='ratio:pt-[80_134]', href=(hot.slug ? '/post/' + hot.slug : '#'))
+                          img.lozad(src=(hot.photoUrl || '/img/1.jpg'), alt=(hot.name || ''))
+                      .content.flex-1.flex.flex-col.justify-between
+                        .date-cate.flex.items-center
+                          .date.body-14
+                            i.fa-light.fa-calendar.mr-2
+                            span= formatDate(hot.createdAt)
+                        .title.body-18.font-semibold.line-clamp-2.leading-snug(class='group-hover:text-primary-1')
+                          a(href=(hot.slug ? '/post/' + hot.slug : '#'))= hot.name || ''
+
+    if relatedPostItems.length > 0
+      section.section-related-news.section-py-min.bg-neutral-50
+        .container
+          .title-32.mb-base.font-bold= __('Cập nhật thông tin mới nhất')
+          .wrap-slide-news.mb-base.relative
+            .swiper-column-auto.auto-3-column
+              .swiper
+                .swiper-wrapper
+                  each related in relatedPostItems
+                    .swiper-slide
+                      .item-news.flex.flex-col
+                        a.img-ratio.rounded-6.zoom-img(class='ratio:pt-[248_440]', href=(related.slug ? '/post/' + related.slug : '#'))
+                          img.lozad(src=(related.photoUrl || '/img/1.jpg'), alt=(related.name || ''))
+                        .content.flex.flex-col
+                          .date-cate.flex.items-center.pt-4.pb-3
+                            .date.body-16
+                              i.fa-light.fa-calendar.mr-2
+                              span= formatDate(related.createdAt)
+                            .dot.bg-neutral-950.rounded-full.mx-2.flex-shrink-0(class='rem:sq-[4px]')
+                            .cate.body-16.text-primary-1= related.categoryName || __('Tin tức')
+                          .title.font-semibold.line-clamp-2.leading-snug.mb-2(class='lg:text-xl text-[20px]')
+                            a(href=(related.slug ? '/post/' + related.slug : '#'))= related.name || ''
+                          .content.body-16.line-clamp-2= related.excerpt || related.description || ''

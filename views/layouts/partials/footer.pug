@@ -1,18 +1,47 @@
 footer(class='section-py xl:rem:py-[60px] bg-neutral-800')
+  style.
+    .subscribe-status {
+      margin-top: 12px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .subscribe-status.is-success {
+      color: #065f46;
+      background: #ecfdf5;
+      border-color: #a7f3d0;
+    }
+    .subscribe-status.is-error {
+      color: #991b1b;
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+  -
+    var sanitizedCompanyName = String(companyName || company || '').replace(/<[^>]*>/g, ' ').trim();
+
+  mixin renderFooterMenuItems(items)
+    each category in items
+      if category && category.name
+        li
+          a(href=(category.url || '#'))= category.name
+          if Array.isArray(category.children) && category.children.length > 0
+            ul
+              +renderFooterMenuItems(category.children)
+
   .container
     .footer-top.flex.items-center.justify-between.mb-8.pb-8.border-b.border-neutral-500.text-white
       .footer-logo
         a(href='/')
-          img(src=(headerLogo || '/img/logo.png'), alt=companyName.replace(/<[^>]*>/g, ' ') || 'HR2B Logo')
+          img(src=(headerLogo || '/img/logo.png'), alt=sanitizedCompanyName || 'HR2B Logo')
       div(class='footer-menu flex-1 xl:rem:mx-[63px] mx-5 -lg:hidden')
         if footerCategories && footerCategories.length > 0
           ul
-            each category in footerCategories
-              li
-                a(href=(category.slug))= category.name
+            +renderFooterMenuItems(footerCategories)
       div(class='footer-social -lg:hidden')
         ul
-          each icon in ['youtube','facebook-f','linkedin-in','zalo','tiktok']
+          each icon in ['youtube', 'facebook-f', 'linkedin-in', 'zalo', 'tiktok']
             li
               a(href='#')
                 if icon === 'zalo'
@@ -22,16 +51,16 @@ footer(class='section-py xl:rem:py-[60px] bg-neutral-800')
       div(class='footer-certs flex items-center lg:gap-6 gap-base justify-end footer-mobile')
         .item-cert
           img.lozad.undefined(data-src='/img/1.png', alt='')
+
     div(class='footer-menu flex-1 xl:rem:mx-[63px] mx-5 lg:hidden footer-mobile')
       ul
         if footerCategories && footerCategories.length > 0
-          each category in footerCategories
-            li
-              a(href=(category.slug ? `/category/${category.slug}` : '#'))= category.name
+          +renderFooterMenuItems(footerCategories)
         else
-          each item in ['Giải pháp','Giải pháp','Giải pháp','Giải pháp','Giải pháp','Giải pháp']
+          each item in ['Giải pháp', 'Giải pháp', 'Giải pháp', 'Giải pháp', 'Giải pháp', 'Giải pháp']
             li
-              a(href='#')= item
+              a(href='#')= _(item)
+
     div(class='footer-bottom mb-base lg:mb-6')
       .row.gap-y-0.justify-between
         .col-lg-4
@@ -49,24 +78,29 @@ footer(class='section-py xl:rem:py-[60px] bg-neutral-800')
                   li
                     a(href=`fax:${fax}`)
                       i.fa-light.fa-fax
-                      p= fax  
+                      p= fax
         .col-lg-5
-          .footer-form-wrap
-            .footer-title.mb-6= sub_title || ''
-            .footer-form
-              input(type='text', placeholder= sub_text || '')
-              button
-                i.fa-solid.fa-send
+          form(method='post', action='/subscribe/submit')
+            .footer-form-wrap
+              .footer-title.mb-6= sub_title || ''
+              .footer-form
+                input(type='email', name='email', placeholder=(sub_text || _('Nhập email của bạn')), required='')
+                button(type='submit', aria-label=_('Đăng ký nhận tin'))
+                  i.fa-solid.fa-send
+              if subscribeSubmitMessage
+                p.subscribe-status(class=(subscribeSubmitStatus === 'success' ? 'is-success' : 'is-error'))= subscribeSubmitMessage
+
     div(class='footer-certs flex items-center lg:gap-6 gap-base justify-end -lg:hidden mb-base lg:mb-0')
       .item-cert
         img.lozad.undefined(data-src='/img/1.png', alt='')
+
     .footer-copyright.flex.items-end.justify-between.flex-wrap.gap-y-5
       .content
         p= copyright
-        p.text-neutral-500 Thiết kế web bởi Cánh Cam.
+        p.text-neutral-500= _('Thiết kế web bởi Cánh Cam.')
       .footer-social.footer-mobile
         ul
-          each icon in ['youtube','facebook-f','linkedin-in','zalo','tiktok']
+          each icon in ['youtube', 'facebook-f', 'linkedin-in', 'zalo', 'tiktok']
             li
               a(href='#')
                 if icon === 'zalo'
@@ -76,6 +110,4 @@ footer(class='section-py xl:rem:py-[60px] bg-neutral-800')
       div(class='copyright-link -lg:w-full')
         if bottomCategories && bottomCategories.length > 0
           ul(class='flex items-center -lg:justify-between w-full lg:gap-4')
-            each category in bottomCategories
-              li
-                a(href=category.slug)= category.name
+            +renderFooterMenuItems(bottomCategories)

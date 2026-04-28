@@ -1,0 +1,61 @@
+- const videoBlock = block || data.videos || {}
+- const videoItems = videoBlock.items || []
+if videoItems.length > 0
+  section.section-home-video.section-py
+    .container
+      .text-center.heading-1.mb-base= videoBlock.title || ''
+      div(class="grid md:grid-cols-2 lg:gap-base gap-[24px]")
+        each video, index in videoItems
+          - const youtubeUrl = (video && video.link_youtube) ? String(video.link_youtube).trim() : '';
+          - const mediaUrl = (video && video.videoUrl) ? String(video.videoUrl).trim() : '';
+          - const displayUrl = youtubeUrl || mediaUrl;
+          - const isYoutube = /(?:youtube\.com|youtu\.be)/i.test(displayUrl);
+          - const isVimeo = /vimeo\.com/i.test(displayUrl);
+          - const youtubeMatch = displayUrl.match(/(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{6,})/);
+          - const vimeoMatch = displayUrl.match(/vimeo\.com\/(\d+)/);
+          - const embedYoutubeUrl = youtubeMatch ? `https://www.youtube.com/embed/${youtubeMatch[1]}?autoplay=1&rel=0` : displayUrl;
+          - const embedVimeoUrl = vimeoMatch ? `https://player.vimeo.com/video/${vimeoMatch[1]}?autoplay=1` : displayUrl;
+          - const popupVideoId = `popup-video-${index}`;
+
+          if displayUrl
+            if isYoutube || isVimeo
+              a.item-video.flex.flex-col(
+                href=(isYoutube ? embedYoutubeUrl : embedVimeoUrl),
+                data-fancybox='share-videos',
+                data-type='iframe'
+              )
+                .img-wrap.relative
+                  div(class="img img-ratio ratio:pt-[380_676] rounded-5")
+                    img.lozad.undefined(src=(video.photoUrl || '/img/default-customer.png'), data-src=(video.photoUrl || '/img/default-customer.png'), alt=video.name)
+                  .btn-video.center
+                    i.fa-solid.fa-play
+                .content.flex.flex-col.py-5.text-center
+                  .title.title-24.font-bold= video.name
+                  .body-18= video.description
+            else
+              a.item-video.flex.flex-col(
+                href='javascript:;',
+                data-fancybox='share-videos',
+                data-src=`#${popupVideoId}`
+              )
+                .img-wrap.relative
+                  div(class="img img-ratio ratio:pt-[380_676] rounded-5")
+                    img.lozad.undefined(src=(video.photoUrl || '/img/default-customer.png'), data-src=(video.photoUrl || '/img/default-customer.png'), alt=video.name)
+                  .btn-video.center
+                    i.fa-solid.fa-play
+                .content.flex.flex-col.py-5.text-center
+                  .title.title-24.font-bold= video.name
+                  .body-18= video.description
+              div(id=popupVideoId, style='display:none;max-width:960px;width:100%;')
+                video(controls, autoplay, playsinline, preload='metadata', style='width:100%;height:auto;')
+                  source(src=displayUrl)
+                  | #{_('Trình duyệt của bạn không hỗ trợ video.')}
+          else
+            .item-video.flex.flex-col
+              .img-wrap.relative
+                div(class="img img-ratio ratio:pt-[380_676] rounded-5")
+                  img.lozad.undefined(src=(video.photoUrl || '/img/default-customer.png'), data-src=(video.photoUrl || '/img/default-customer.png'), alt=video.name)
+              .content.flex.flex-col.py-5.text-center
+                .title.title-24.font-bold= video.name
+                .body-18= video.description
+    .big-text HR2B

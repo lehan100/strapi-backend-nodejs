@@ -1,0 +1,28 @@
+-
+  var rawItems = Array.isArray(breadcrumbItems) ? breadcrumbItems : [];
+  var resolvedBreadcrumbItems = [];
+  for (var i = 0; i < rawItems.length; i += 1) {
+    var item = rawItems[i];
+    if (!item || !item.name) continue;
+    if (i === 0) {
+      var itemUrl = String(item.url || '').trim();
+      var itemSlug = String(item.slug || '').trim().toLowerCase();
+      var itemName = String(item.name || '').trim().toLowerCase();
+      var isHome = itemUrl === '/' || itemSlug === 'home' || itemName === 'trang chủ' || itemName === 'trang chu';
+      if (isHome) continue;
+    }
+    resolvedBreadcrumbItems.push(item);
+  }
+
+div(class='global-breadcrumb')
+  nav(class='rank-math-breadcrumb', aria-label='breadcrumbs')
+    p
+      a(href='/')
+        = _('Trang chủ')
+      each item, index in resolvedBreadcrumbItems
+        span(class='separator')
+          |
+        if index === resolvedBreadcrumbItems.length - 1 || !item.url
+          span(class='last')= item.name
+        else
+          a(href=item.url)= item.name

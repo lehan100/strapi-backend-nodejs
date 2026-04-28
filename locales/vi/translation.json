@@ -1,0 +1,40 @@
+{
+  "Trang chủ": "Trang chủ",
+  "Tìm kiếm...": "Tìm kiếm...",
+  "Liên hệ": "Liên hệ",
+  "Thiết kế web bởi Cánh Cam.": "Thiết kế web bởi Cánh Cam.",
+  "Thông tin liên hệ": "Thông tin liên hệ",
+  "Họ và tên": "Họ và tên",
+  "Tên công ty": "Tên công ty",
+  "Số điện thoại": "Số điện thoại",
+  "Email công việc": "Email công việc",
+  "Hãy để chúng tôi hiểu hơn về nhu cầu..": "Hãy để chúng tôi hiểu hơn về nhu cầu..",
+  "Tôi đồng ý với": "Tôi đồng ý với",
+  "Điều kiện điều khoản": "Điều kiện điều khoản",
+  "và": "và",
+  "Chính sách bảo mật": "Chính sách bảo mật",
+  "của HR2B.": "của HR2B.",
+  "Gửi ngay": "Gửi ngay",
+  "common": {
+    "home": "Trang chủ",
+    "search": "Tìm kiếm...",
+    "contact": "Liên hệ"
+  },
+  "footer": {
+    "designBy": "Thiết kế web bởi Cánh Cam."
+  },
+  "contactForm": {
+    "title": "Thông tin liên hệ",
+    "fullname": "Họ và tên",
+    "company": "Tên công ty",
+    "phone": "Số điện thoại",
+    "workEmail": "Email công việc",
+    "requirements": "Hãy để chúng tôi hiểu hơn về nhu cầu..",
+    "agreePrefix": "Tôi đồng ý với",
+    "terms": "Điều kiện điều khoản",
+    "and": "và",
+    "privacy": "Chính sách bảo mật",
+    "ofCompany": "của HR2B.",
+    "submit": "Gửi ngay"
+  }
+}

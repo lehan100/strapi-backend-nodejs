@@ -1,17 +1,38 @@
 header
+  -
+    var sanitizedCompanyName = String(companyName || '').replace(/<[^>]*>/g, ' ').trim();
+
+  mixin renderMenuItems(items, withIcon)
+    each category in items
+      if category && category.name
+        li
+          a(href=(category.url || '#'))
+            if withIcon
+              i.fa-regular(class=category.icon || 'fa-house')
+            span= category.name
+          if Array.isArray(category.children) && category.children.length > 0
+            ul
+              +renderMenuItems(category.children, false)
+
   .container
     nav
       a.header-logo(href='/')
-        img(src=(headerLogo || '/img/logo.png'), alt= companyName.replace(/<[^>]*>/g, ' ') || 'HR2B Logo')
+        img(src=(headerLogo || '/img/logo.png'), alt=sanitizedCompanyName || 'HR2B Logo')
+
+      //- div(class='header-menu-list -lg:hidden')
+      //-   ul
+      //-     if headerCategories && headerCategories.length > 0
+      //-       +renderMenuItems(headerCategories, false)
+
       .header-right
         div(class='header-search-button lg:hidden')
           i(class='fa-light fa-magnifying-glass text-[16px] text-white')
         div(class='header-search -lg:!hidden')
-          input(type='text', placeholder= text_search || 'Tìm kiếm...')
+          input(type='text', placeholder=(text_search || _('Tìm kiếm...')))
           button(type='submit')
             i.fa-regular.fa-magnifying-glass
         div(class='header-contact-button btn btn-primary -lg:!hidden', data-fancybox='', data-src='#popup-contact')
-          span Liên hệ
+          span= _('Liên hệ')
         .header-user
           i.fa-light.fa-circle-user
         if locales && locales.length > 0
@@ -20,12 +41,13 @@ header
               ul
                 each locale in locales
                   li.wpml-ls-item
-                    a(href= "/language" + (locale.code === 'vn' ? '/' : `/${locale.code}`))
+                    a(href='/language' + (locale.code === 'vn' ? '/' : ('/' + locale.code)))
                       span.wpml-ls-native= locale.code.toUpperCase()
         .header-hambuger
           span
           span
           span
+
   .header-pane-mobile
     div(class='header-top lg:hidden ml-auto flex items-center gap-[8px] justify-end')
       div(class='header-search')
@@ -35,35 +57,34 @@ header
       if locales && locales.length > 0
         div(class='header-language')
           .wpml-ls
-              ul
+            ul
               each locale in locales
                 li.wpml-ls-item
-                  a(href= "/language" + (locale.code === 'vn' ? '/' : `/${locale.code}`))
+                  a(href='/language' + (locale.code === 'vn' ? '/' : ('/' + locale.code)))
                     span.wpml-ls-native= locale.code.toUpperCase()
         .header-hambuger
           span
           span
           span
+
     div(class='header-logo -lg:hidden mb-6')
       a.logo(href='/')
-        img(src=(headerLogo || '/img/logo.png'), alt= companyName.replace(/<[^>]*>/g, ' ') || 'HR2B Logo')
+        img(src=(headerLogo || '/img/logo.png'), alt=sanitizedCompanyName || 'HR2B Logo')
         .content
           if companyName
             | !{companyName}
           else
             p HR2B Logo
-    if headerCategories && headerCategories.length > 0
-      .header-menu-list
-        ul
-          each category in headerCategories
-            li
-              a(href=category.slug)
-                i.fa-light(class=category.icon || 'fa-house')
-                span= category.name
+
+    .header-menu-list
+      ul
+        if headerCategories && headerCategories.length > 0
+          +renderMenuItems(headerCategories, true)
+
     div(class='header-pane-toggle flex items-center justify-between gap-2')
       .btn-toggle
         .icon
           img.sun(src='/img/sun.svg', alt='')
           img.moon(src='/img/moon.svg', alt='')
       div(class='header-contact-button btn btn-primary lg:hidden', data-fancybox='', data-src='#popup-contact')
-        span Liên hệ
+        span= _('Liên hệ')

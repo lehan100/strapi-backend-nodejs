@@ -1,0 +1,42 @@
+- const info = (data && data.info) ? data.info : {}
+- const numbers = (data && data.numbers) ? data.numbers : {}
+- const aboutTitle = info.title || _('Giải pháp nhân sự toàn diện từ HR2B')
+- const aboutDescriptionHtml = info.descriptionHtml || ''
+- const aboutPhoto = info.urlPhoto || ''
+- const numberItems = Array.isArray(numbers.items) ? numbers.items : []
+- const numberBackground = numbers.backgroundUrl || './img/15.png'
+
+section.section-service.section-1.section-py-min.relative
+  .container
+    .heading-1.mb-base= aboutTitle
+    div(class='wrap-solution flex flex-col lg:gap-base gap-[20px] mb-base')
+      div(class='item-career-solution grid md:grid-cols-2 lg:gap-base gap-[20px]')
+        div(class='img img-ratio ratio:pt-[182_358] rounded-6')
+          img.lozad.undefined(data-src=aboutPhoto, alt=aboutTitle)
+        .content.flex.flex-col.gap-6.justify-center
+          .format-content.body-18
+            if aboutDescriptionHtml
+              != aboutDescriptionHtml
+  .wrap-number-item
+    img.edge(src=numberBackground, alt='')
+    .container
+      div(class='grid md:grid-cols-3 gap-base gap-y-0')
+        if numberItems.length > 0
+          each stat in numberItems
+            - const statValue = stat.count_up || stat.number || '0'
+            - const statSuffix = stat.count_text || ''
+            - const statLabel = stat.title_top || stat.title_bottom || stat.title || ''
+            .item-number-item.flex.flex-col
+              .number
+                span.countup(data-number=statValue)= statValue
+                if statSuffix
+                  sup.suffix= statSuffix
+              .text
+                p= statLabel
+        else
+          .item-number-item.flex.flex-col
+            .number
+              span.countup(data-number='20') 20
+              sup.suffix +
+            .text
+              p= _('Năm hình thành và phát triển')

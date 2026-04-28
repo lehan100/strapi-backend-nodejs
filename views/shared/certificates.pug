@@ -1,0 +1,21 @@
+- const certificateBlock = block || {};
+- const certificateItems = Array.isArray(certificateBlock.items) ? certificateBlock.items : [];
+if certificateItems.length > 0
+  section(class='section-about-6 section-py-min')
+    div(class='container')
+      div(class='heading-1 text-center mb-base')
+        = certificateBlock.title || _('Chứng chỉ - Chứng nhận')
+      div(class='wrap')
+        div(class='swiper-column-auto auto-3-column')
+          div(class='swiper')
+            div(class='swiper-wrapper')
+              each certificate in certificateItems
+                div(class='swiper-slide')
+                  div(class='item-cert border border-neutral-50 clampRem:p-[16px] flex items-center clampRem:gap-[24px_24px] clampRem:rounded-[24px] hover:border-primary-1 transition-all')
+                    div(class='content flex flex-col flex-1')
+                      div(class='title body-18 font-bold lg:rem:text-[24px]')
+                        = certificate.title || ''
+                      div(class='body-14 lg:rem:text-[14px]')
+                        = certificate.description || ''
+                    div(class='img clampRem:w-[110px_110px] clampRem:h-[139px_139px] flex-center rounded-6 bg-[#fafafa] p-4 flex-shrink-0 [&_img]:w-full [&_img]:h-full [&_img]:rounded-5')
+                      img(src=(certificate.photoUrl || '/img/10.png'), alt=(certificate.title || 'Certificate'))

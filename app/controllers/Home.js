@@ -3,6 +3,10 @@ const express = require("express");
 const moment = require("moment");
 const qs = require("qs");
 const { strapiBase } = require("../../config/constants");
+const {  toAbsoluteUrl } = require("../../config/media");
+const { markdownToHtml } = require("../../config/rich-text");
+const { normalizeSingleComponent, buildHumanResourceLink } = require("./shared/content");
+const { fetchStrapiEntry, hydrateRelatedItems } = require("./shared/strapi");
 
 const router = express.Router();
 
@@ -10,44 +14,9 @@ const HOME_QUERY = {
     populate: {
         video: { populate: "*" },
         seo: { populate: "*" },
-        about: { populate: "*" },
-        achievements: {
-            populate: "*",
-            filters: { active: { $eq: true } },
-        },
-        human_resources: {
-            populate: "*",
-            filters: { active: { $eq: true } },
-        },
-        customers: { populate: "*" },
-        fedbacks: { populate: "*" },
-        partners: { populate: "*" },
-        posts: {
-            populate: "*",
-            filters: { active: { $eq: true } },
-        },
-        events: {
-            populate: "*",
-            filters: { active: { $eq: true } },
-        },
-        videos: { populate: "*" },
+        blocks: { populate: "*" },
     },
 };
-
-const toAbsoluteUrl = (fileUrl, fallback = "") => {
-    if (!fileUrl) return fallback;
-    return fileUrl.startsWith("http") ? fileUrl : strapiBase + fileUrl;
-};
-
-const mapMediaList = (items, imageField, outputField, fallbackImage) => {
-    if (!Array.isArray(items)) return [];
-
-    return items.map((item) => ({
-        ...item,
-        [outputField]: toAbsoluteUrl(item?.[imageField]?.url, fallbackImage),
-    }));
-};
-
 const getEventDateParts = (timeStart) => {
     const date = timeStart ? moment(timeStart) : null;
     if (!date || !date.isValid()) {
@@ -77,6 +46,209 @@ const getEventStatusText = (timeStart, timeEnd) => {
     return "Đang diễn ra";
 };
 
+const strapiContext = { axios, qs, strapiBase };
+
+const stripHtml = (value) => String(value || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+
+const buildExcerpt = (value, maxLength = 180) => {
+    const text = stripHtml(markdownToHtml(value));
+    if (!text) return "";
+    if (text.length <= maxLength) return text;
+    return `${text.slice(0, maxLength).trimEnd()}...`;
+};
+
+const resolveFirstRelatedIdentifier = (block) => {
+    const single = block?.item;
+    if (single?.documentId || single?.id) {
+        return single.documentId || single.id;
+    }
+
+    const list = Array.isArray(block?.items) ? block.items : [];
+    if (list[0]?.documentId || list[0]?.id) {
+        return list[0].documentId || list[0].id;
+    }
+
+    return null;
+};
+
+const safeHydrateBlock = async (block) => {
+    try {
+        return await hydrateBlock(block);
+    } catch (error) {
+        console.error("Hydrate block lỗi:", block?.__component || "unknown", error?.message || error);
+        return block || {};
+    }
+};
+
+const buildHomeFallbackData = () => ({
+    videoUrl: "/default-video.mp4",
+    videoHeading: "",
+    videoTitle: "",
+    videoButtonText: "",
+    videoButtonLink: "#",
+    blocks: [],
+});
+
+const hydrateBlock = async (block) => {
+    const componentKey = (block?.__component || "").toLowerCase();
+
+    if (componentKey === "homepage.about") {
+        return {
+            ...block,
+            aboutPhoto: toAbsoluteUrl(block?.photo, "./img/default-logo.png"),
+            aboutBackground: toAbsoluteUrl(block?.background, "./img/edge-1-no-noise.png"),
+            descriptionHtml: markdownToHtml(block?.description || ""),
+        };
+    }
+
+    if (componentKey === "homepage.giai-phap-nhan-su") {
+        const hydratedItems = await hydrateRelatedItems(strapiContext, block?.items, "human-resources", (item) => ({
+            ...item,
+            photoUrl: toAbsoluteUrl(item?.photo, "./img/default-achievement.png"),
+            detailLink: buildHumanResourceLink(item),
+        }));
+
+        return {
+            ...block,
+            iconUrl: toAbsoluteUrl(block?.icon, "/img/default-customer.png"),
+            items: hydratedItems,
+        };
+    }
+
+    if (componentKey === "homepage.tin-tuc") {
+        const hydratedItems = await hydrateRelatedItems(strapiContext, block?.items, "posts", (item) => ({
+            ...item,
+            photoUrl: toAbsoluteUrl(item?.photo, "/img/default-customer.png"),
+            publishedAt: item.publishedAt ? moment(item.publishedAt).format("DD/MM/YYYY") : null,
+            excerpt: buildExcerpt(item?.description || item?.content || "", 180),
+        }));
+
+        return {
+            ...block,
+            items: hydratedItems,
+        };
+    }
+
+    if (componentKey === "homepage.su-kien") {
+        const hydratedItems = await hydrateRelatedItems(strapiContext, block?.items, "events", (item) => ({
+            ...item,
+            photoUrl: toAbsoluteUrl(item?.photo, "/img/default-customer.png"),
+            ...getEventDateParts(item.time_start),
+            eventStatusText: getEventStatusText(item.time_start, item.time_end),
+        }));
+
+        return {
+            ...block,
+            backgroundUrl: toAbsoluteUrl(block?.background, "/img/default-customer.png"),
+            items: hydratedItems,
+        };
+    }
+
+    const firstRelatedIdentifier = resolveFirstRelatedIdentifier(block);
+
+    if (!firstRelatedIdentifier) {
+        return {
+            ...block,
+            items: [],
+        };
+    }
+
+    if (componentKey === "shares.thanh-tuu") {
+        const entry = await fetchStrapiEntry(strapiContext, "achievement-sets", firstRelatedIdentifier, {
+            populate: { items: { populate: "*" } },
+        });
+
+        return {
+            ...block,
+            title: entry?.title || "",
+            icon: entry?.icon || "arrow-up-right",
+            items: Array.isArray(entry?.items)
+                ? entry.items.map((item) => ({
+                      ...item,
+                      photoUrl: toAbsoluteUrl(item?.photo, "/img/default-achievement.png"),
+                  }))
+                : [],
+        };
+    }
+
+    if (componentKey === "shares.video") {
+        const entry = await fetchStrapiEntry(strapiContext, "video-sets", firstRelatedIdentifier, {
+            populate: { items: { populate: "*" } },
+        });
+
+        return {
+            ...block,
+            title: entry?.title || "",
+            items: Array.isArray(entry?.items)
+                ? entry.items.map((item) => ({
+                      ...item,
+                      photoUrl: toAbsoluteUrl(item?.photo, "/img/default-customer.png"),
+                      videoUrl: toAbsoluteUrl(item?.video, ""),
+                  }))
+                : [],
+        };
+    }
+
+    if (componentKey === "shares.khach-hang") {
+        const entry = await fetchStrapiEntry(strapiContext, "customer-sets", firstRelatedIdentifier, {
+            populate: { item_logos: { populate: "*" } },
+        });
+
+        return {
+            ...block,
+            title: entry?.title || "",
+            items: Array.isArray(entry?.item_logos)
+                ? entry.item_logos.map((item) => ({
+                      ...item,
+                      photoUrl: toAbsoluteUrl(item?.photo, "/img/default-customer.png"),
+                  }))
+                : [],
+        };
+    }
+
+    if (componentKey === "shares.doi-tac") {
+        const entry = await fetchStrapiEntry(strapiContext, "partner-sets", firstRelatedIdentifier, {
+            populate: { item_logos: { populate: "*" } },
+        });
+
+        return {
+            ...block,
+            title: entry?.title || "",
+            items: Array.isArray(entry?.item_logos)
+                ? entry.item_logos.map((item) => ({
+                      ...item,
+                      photoUrl: toAbsoluteUrl(item?.photo, "/img/default-customer.png"),
+                  }))
+                : [],
+        };
+    }
+
+    if (componentKey === "shares.cam-nhan-khach-hang") {
+        const entry = await fetchStrapiEntry(strapiContext, "feedback-sets", firstRelatedIdentifier, {
+            populate: {
+                background_left: { populate: "*" },
+                background_right: { populate: "*" },
+                items: { populate: "*" },
+            },
+        });
+
+        return {
+            ...block,
+            title: entry?.title || "",
+            backgroundLeftUrl: toAbsoluteUrl(entry?.background_left, "./img/edge-3.png"),
+            backgroundRightUrl: toAbsoluteUrl(entry?.background_right, "./img/edge-4.png"),
+            items: Array.isArray(entry?.items)
+                ? entry.items.map((item) => ({
+                      ...item,
+                      avatarUrl: toAbsoluteUrl(item?.avatar, "/img/default-customer.png"),
+                  }))
+                : [],
+        };
+    }
+
+    return block;
+};
+
 router.get("/", async (req, res) => {
     try {
         const query = qs.stringify(HOME_QUERY, { encodeValuesOnly: true });
@@ -84,7 +256,8 @@ router.get("/", async (req, res) => {
         const data = response.data?.data || {};
 
         const video = data.video || {};
-        data.videoUrl = toAbsoluteUrl(video?.media?.url, "/default-video.mp4");
+        data.videoUrl = toAbsoluteUrl(video?.media, "/default-video.mp4");
+        data.videoHeading = video?.description || "";
         data.videoTitle = video?.title || "";
         data.videoButtonText = video?.button_text || "";
         data.videoButtonLink = video?.button_link || "#";
@@ -96,33 +269,17 @@ router.get("/", async (req, res) => {
         res.locals.ogTitle = seo.ogTitle || "";
         res.locals.ogDescription = seo.ogDescription || "";
 
-        const about = data.about || {};
-        data.about = {
-            ...about,
-            aboutPhoto: toAbsoluteUrl(about?.photo?.url, "/default-logo.png"),
-        };
-
-        data.achievements = mapMediaList(data.achievements, "photo", "photoUrl", "/img/default-achievement.png");
-        data.human_resources = mapMediaList(data.human_resources, "photo", "photoUrl", "/img/default-human-resource.png");
-        data.customers = mapMediaList(data.customers, "photo", "photoUrl", "/img/default-customer.png");
-        data.fedbacks = mapMediaList(data.fedbacks, "avatar", "avatarUrl", "/img/default-customer.png");
-        data.partners = mapMediaList(data.partners, "photo", "photoUrl", "/img/default-customer.png");
-        data.events = mapMediaList(data.events, "photo", "photoUrl", "/img/default-customer.png").map((item) => ({
-            ...item,
-            ...getEventDateParts(item.time_start),
-            eventStatusText: getEventStatusText(item.time_start, item.time_end),
-        }));
-        data.videos = mapMediaList(data.videos, "photo", "photoUrl", "/img/default-customer.png");
-
-        data.posts = mapMediaList(data.posts, "photo", "photoUrl", "/img/default-customer.png").map((item) => ({
-            ...item,
-            publishedAt: item.publishedAt ? moment(item.publishedAt).format("DD/MM/YYYY") : null,
-        }));
-
+        data.blocks = await Promise.all((Array.isArray(data.blocks) ? data.blocks : []).map(safeHydrateBlock));
         return res.render("home/index", { data });
     } catch (error) {
-        console.error("Lỗi tải homepage:", error.message);
-        return res.render("home/index", { data: {} });
+        console.error("Lỗi tải homepage:", error?.message || error);
+        if (error?.stack) {
+            console.error(error.stack);
+        }
+        if (error.response?.data) {
+            console.error("Strapi error detail:", JSON.stringify(error.response.data, null, 2));
+        }
+        return res.status(200).render("home/index", { data: buildHomeFallbackData() });
     }
 });
 

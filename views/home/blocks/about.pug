@@ -1,0 +1,22 @@
+- const aboutBlock = block || data.about || {}
+- const hasAboutData = !!(aboutBlock && (aboutBlock.title || aboutBlock.descriptionHtml || aboutBlock.description || aboutBlock.aboutPhoto))
+if hasAboutData
+  section.section-home-about.section-py
+    img.edge.edge-1(src=(aboutBlock.aboutBackground || "./img/edge-1-no-noise.png"), alt="no-noise", class="edge edge-1")
+    .container
+      div(class='row -md:flex-col-reverse justify-between')
+        div(class='col-lg-7 col-md-6')
+          div(class='flex flex-col gap-base justify-center h-full')
+            h2(class='heading-1')= aboutBlock.title
+            div(class='format-content text-justify body-18 font-semibold')
+              if aboutBlock.descriptionHtml
+                != aboutBlock.descriptionHtml
+              else if aboutBlock.description
+                p= aboutBlock.description
+            a.btn.btn-primary(href= aboutBlock.button_link)
+              span= aboutBlock.button_text
+              .icon
+        div(class='col-md-1 -lg:hidden')
+        div(class='col-lg-4 col-md-5')
+          div(class='box-img')
+            img(src=(aboutBlock.aboutPhoto || "./img/default-logo.png"), alt=aboutBlock.title)

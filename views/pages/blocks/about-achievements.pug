@@ -1,0 +1,24 @@
+- const achievementBlock = block || {};
+- const achievementItems = Array.isArray(achievementBlock.items) ? achievementBlock.items : [];
+if achievementItems.length > 0
+  section(class='section-about-2 section-py-min !pt-0')
+    div(class='container')
+      div(class='wrap-box-main bg-primary-1 grid grid-cols-2 md:grid-cols-4 md:gap-base gap-x-[32px] gap-y-[40px] py-[40px] px-[16px] lg:py-10 lg:px-8 lg:rounded-6 rounded-[24px]')
+        img(class='edge', src='/img/9.png', alt='')
+        each achievement in achievementItems
+          -
+            const rawNumber = achievement.count_up ?? achievement.number ?? achievement.value ?? '';
+            const numberText = `${rawNumber}`.trim();
+            const suffixText = achievement.count_text ?? achievement.suffix ?? '';
+            const labelText = achievement.title_bottom || achievement.title_top || achievement.title || achievement.description || '';
+            const isNumeric = /^-?\d+([.,]\d+)?$/.test(numberText);
+          div(class='item-achievement flex flex-col text-white')
+            div(class='number')
+              if isNumeric
+                span(class='countup', data-number=numberText)= numberText
+              else
+                span= numberText
+              if suffixText
+                sup(class='suffix')= suffixText
+            div(class='text')
+              p= labelText

@@ -1,0 +1,16 @@
+- const dataBlock = block || {};
+- const blockItems = Array.isArray(dataBlock.items) ? dataBlock.items : [];
+if blockItems.length > 0
+    section.section-career.section-solution.section-py-min(class='!pt-0')
+        .container
+            .title-32.mb-base.font-bold.font-secondary.text-center= dataBlock.title
+            .wrap-solution.flex.flex-col(class='lg:gap-base gap-[20px]')
+                each item in blockItems
+                    .item-career-solution.grid(class='md:grid-cols-2 lg:gap-base gap-[20px]')
+                        .img.img-ratio.rounded-6(class='ratio:pt-[182_358]')
+                            img.lozad.undefined(data-src= item.photoUrl alt= item.title)
+                        .content.flex.flex-col.gap-6.justify-center
+                            .format-content.body-18
+                            != item.description
+                            .btn.btn-view
+                                span Xem th&ecirc;m

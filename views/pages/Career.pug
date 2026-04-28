@@ -1,6 +1,85 @@
 extends ../layouts/default
 
 block content
-    main
-      .main-wrapper
-          h1 Career Page
+  var pageTitle = (category && category.name) ? category.name : _('Liên hệ');
+  var breadcrumbItems = [{ name: pageTitle, url: '' }];
+  main
+    if data.banner && data.banner.urlPhoto
+        section(class='page-banner-main relative')
+          div(class='img img-ratio ratio:pt-[320_390] md:ratio:pt-[600_1920]')
+            img(src=data.banner.urlPhoto, alt= category.name)
+          div(class='content container flex flex-col py-[40px] lg:py-10 absolute-center-x bottom-0 text-white')
+            h1(class='xl:rem:text-[72px] lg:text-[58px] text-[40px]')
+              = (category && category.name) ? category.name : ''
+            -
+              var pageTitle = (category && category.name) ? category.name : _('Về chúng tôi');
+              var breadcrumbItems = [{ name: pageTitle, url: '' }];
+            include ./blocks/breadcrumb
+    
+    section.section-career-list.list.section-py-min
+      .container
+        .heading-1.mb-base C&#x1A1; h&#x1ED9;i hi&#x1EC7;n t&#x1EA1;i
+        .wrap-list-job
+          .grid(class='lg:grid-cols-3 md:grid-cols-2 xl:gap-base gap-[12px]')
+            .item-recruitment.flex.flex-col.p-3.bg-neutral-50.rounded-4.relative(class='lg:gap-3 gap-[12px]')
+              a.body-18.font-bold.transition-all.duration-300.stretched-link(class='hover:text-primary-1' href='') Business Development Manager
+              .list-specs.flex.flex-col.body-16(class='lg:gap-3 gap-[12px]')
+                .item-spec
+                  i.fa-solid.fa-coins
+                  span 15.000.000 - 20.000.000
+                .flex.items-center(class='lg:gap-6 gap-[24px]')
+                  .item-spec
+                    i.fa-solid.fa-location-dot
+                    span H&agrave; N&#x1ED9;i
+                  .item-spec
+                    i.fa-solid.fa-calendar
+                    span 07/07/2025
+              .btn.flex.items-center.gap-3.text-primary-1
+                span.body-16.font-semibold &#x1EE8;ng tuy&#x1EC3;n ngay 
+                i.fa-light.fa-arrow-right.body-18
+            .item-recruitment.flex.flex-col.p-3.bg-neutral-50.rounded-4.relative(class='lg:gap-3 gap-[12px]')
+              a.body-18.font-bold.transition-all.duration-300.stretched-link(class='hover:text-primary-1' href='') Business Development Manager
+              .list-specs.flex.flex-col.body-16(class='lg:gap-3 gap-[12px]')
+                .item-spec
+                  i.fa-solid.fa-coins
+                  span 15.000.000 - 20.000.000
+                .flex.items-center(class='lg:gap-6 gap-[24px]')
+                  .item-spec
+                    i.fa-solid.fa-location-dot
+                    span H&agrave; N&#x1ED9;i
+                  .item-spec
+                    i.fa-solid.fa-calendar
+                    span 07/07/2025
+              .btn.flex.items-center.gap-3.text-primary-1
+                span.body-16.font-semibold &#x1EE8;ng tuy&#x1EC3;n ngay 
+                i.fa-light.fa-arrow-right.body-18
+            .item-recruitment.flex.flex-col.p-3.bg-neutral-50.rounded-4.relative(class='lg:gap-3 gap-[12px]')
+              a.body-18.font-bold.transition-all.duration-300.stretched-link(class='hover:text-primary-1' href='') Business Development Manager
+              .list-specs.flex.flex-col.body-16(class='lg:gap-3 gap-[12px]')
+                .item-spec
+                  i.fa-solid.fa-coins
+                  span 15.000.000 - 20.000.000
+                .flex.items-center(class='lg:gap-6 gap-[24px]')
+                  .item-spec
+                    i.fa-solid.fa-location-dot
+                    span H&agrave; N&#x1ED9;i
+                  .item-spec
+                    i.fa-solid.fa-calendar
+                    span 07/07/2025
+              .btn.flex.items-center.gap-3.text-primary-1
+                span.body-16.font-semibold &#x1EE8;ng tuy&#x1EC3;n ngay 
+                i.fa-light.fa-arrow-right.body-18
+    - const aboutBlocks = Array.isArray(data.blocks) ? data.blocks : []
+    if aboutBlocks.length > 0
+      each block in aboutBlocks
+        case block.__component
+          when 'career.lam-viec-tai-nha-linh-hoat'
+            include ./blocks/carreer-session-1
+          when 'career.lam-viec-tai-nha'
+            include ./blocks/carreer-session-2
+          when 'career.goc-chia-se'
+            include ./blocks/carreer-session-3
+          when 'career.tuyen-dung-nhu-the-nao'
+            include ./blocks/carreer-session-4
+          when 'career.image-galaxy'
+            include ./blocks/carreer-session-5

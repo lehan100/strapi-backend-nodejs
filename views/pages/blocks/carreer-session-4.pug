@@ -1,0 +1,21 @@
+- const careerSession4Block = block || {};
+- const careerSession4Items = Array.isArray(careerSession4Block.items) ? careerSession4Block.items : [];
+if careerSession4Items.length > 0
+  section.section-career.section-we-are.section-py-min(class='!pt-0')
+    .container
+      .title-32.mb-base.font-bold.font-secondary.text-center= careerSession4Block.title || ''
+      .flex-center
+        .wrap-step-career
+          each item in careerSession4Items
+            - const titleLines = String((item && item.title) ? item.title : '').split('\n').map((line) => line.trim()).filter(Boolean);
+            .item-step-career-wrap
+              .item-step-career.flex.flex-col.gap-5(class='lg:py-5 lg:px-10 py-[60px] px-[40px]')
+                .flex.items-center.gap-5
+                  .icon.flex-center(class='lg:rem:sq-[52px] sq-[52px]')
+                    img.lozad.undefined(data-src=((item && item.photoUrl) ? item.photoUrl : '/img/14.png') alt=((item && item.title) ? item.title : ''))
+                  .content.text-lg.leading-tight.font-semibold(class='xl:title-24')
+                    if titleLines.length > 0
+                      each line in titleLines
+                        p= line
+                .format-content.body-16
+                  != (item && item.descriptionHtml) ? item.descriptionHtml : ((item && item.description) ? item.description : '')

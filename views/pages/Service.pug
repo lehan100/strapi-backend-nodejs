@@ -1,0 +1,19 @@
+extends ../layouts/default
+
+block content
+  var pageTitle = (category && category.name) ? category.name : _('Liên hệ');
+  var breadcrumbItems = [{ name: pageTitle, url: '' }];  
+  main
+    if data.banner && data.banner.urlPhoto
+        section(class='page-banner-main relative')
+          div(class='img img-ratio ratio:pt-[320_390] md:ratio:pt-[600_1920]')
+            img(src=data.banner.urlPhoto, alt= category.name)
+          div(class='content container flex flex-col py-[40px] lg:py-10 absolute-center-x bottom-0 text-white')
+            h1(class='xl:rem:text-[72px] lg:text-[58px] text-[40px]')
+              = (category && category.name) ? category.name : ''
+            -
+              var pageTitle = (category && category.name) ? category.name : _('Về chúng tôi');
+              var breadcrumbItems = [{ name: pageTitle, url: '' }];
+            include ./blocks/breadcrumb
+    include ./blocks/service-about
+    include ../home/blocks/human-resources.pug

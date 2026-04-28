@@ -1,0 +1,40 @@
+{
+  "Trang chủ": "Home",
+  "Tìm kiếm...": "Search...",
+  "Liên hệ": "Contact",
+  "Thiết kế web bởi Cánh Cam.": "Web design by Canh Cam.",
+  "Thông tin liên hệ": "Contact information",
+  "Họ và tên": "Full name",
+  "Tên công ty": "Company name",
+  "Số điện thoại": "Phone number",
+  "Email công việc": "Work email",
+  "Hãy để chúng tôi hiểu hơn về nhu cầu..": "Help us understand your requirements..",
+  "Tôi đồng ý với": "I agree with",
+  "Điều kiện điều khoản": "Terms and Conditions",
+  "và": "and",
+  "Chính sách bảo mật": "Privacy Policy",
+  "của HR2B.": "of HR2B.",
+  "Gửi ngay": "Send now",
+  "common": {
+    "home": "Home",
+    "search": "Search...",
+    "contact": "Contact"
+  },
+  "footer": {
+    "designBy": "Web design by Canh Cam."
+  },
+  "contactForm": {
+    "title": "Contact information",
+    "fullname": "Full name",
+    "company": "Company name",
+    "phone": "Phone number",
+    "workEmail": "Work email",
+    "requirements": "Help us understand your requirements..",
+    "agreePrefix": "I agree with",
+    "terms": "Terms and Conditions",
+    "and": "and",
+    "privacy": "Privacy Policy",
+    "ofCompany": "of HR2B.",
+    "submit": "Send now"
+  }
+}

@@ -1,0 +1,26 @@
+- const feedbackBlock = block || data.feedbacks || {}
+- const feedbackItems = feedbackBlock.items || []
+if feedbackItems.length > 0
+  section(class='section-home-customer section-py bg-[#F6F6F6] overflow-hidden !pb-0')
+    div(class='section-customer-review mb-[20px] md:mb-[40px] xl:mb-20')
+      div(class='heading-1 text-center')= feedbackBlock.title || _('Cảm nhận khách hàng')
+      div(class='wrap-slide-testimonial px-[48px] lg:px-0 lg:rem:max-w-[800px] xl:rem:max-w-[1000px] mx-auto relative')
+        img(class='edge edge-1' src=feedbackBlock.backgroundLeftUrl alt='edge')
+        img(class='edge edge-2' src=feedbackBlock.backgroundRightUrl alt='edge')
+        div(class='swiper-column-auto swiper-rewind relative')
+          div(class='swiper')
+            div(class='swiper-wrapper')
+              each feedback in feedbackItems
+                div(class='swiper-slide')
+                  div(class='item-testimonial flex flex-col px-8 py-6 bg-white rounded-6 shadow-dropshadow-light')
+                    div(class='content body-16')
+                      p= feedback.comment
+                    div(class='avatar-name mt-8 pt-8 border-t border-[#DCDCDC] flex items-center gap-6')
+                      div(class='avatar rem:sq-[72px] img-full rounded-full overflow-hidden')
+                        img.lozad.undefined(src=(feedback.avatarUrl || '/img/default-customer.png'), data-src=(feedback.avatarUrl || '/img/default-customer.png'), alt=feedback.author)
+                      div(class='name flex flex-col gap-1')
+                        div(class='body-18 font-bold')= feedback.author
+                        div(class='body-16 font-light')= feedback.regency
+          div(class='wrap-button-slide-custom flex items-center gap-4 justify-center xl:-mt-5')
+            div(class='btn btn-prev btn-sw-1')
+            div(class='btn btn-next btn-sw-1')

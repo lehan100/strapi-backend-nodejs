@@ -1,0 +1,10 @@
+extends ../layouts/default
+
+block content
+  main
+    section.section-py
+      .container
+        .text-center.flex.flex-col.items-center(class='gap-[16px] lg:gap-6')
+          h1.heading-1 404
+          p.body-18= _('Không tìm thấy nội dung bạn yêu cầu.')
+          a.btn.btn-primary(href='/')= _('Quay về trang chủ')

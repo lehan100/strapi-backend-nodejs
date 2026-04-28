@@ -1,0 +1,14 @@
+- const partnerBlock = block || data.partners || {}
+- const partnerItems = partnerBlock.items || []
+if partnerItems.length > 0
+  section(class="section-home-coop section-py xl:mb-[52px]")
+    .container
+      .text-center.heading-1.mb-base= partnerBlock.title || _('Đối tác của chúng tôi')
+      div(class="grid grid-cols-2 md:grid-cols-4 lg:gap-6 gap-[12px]")
+        each partner in partnerItems
+          if partner.link
+            a(class="item-logo flex-center img-contain border border-neutral-100 lg:rem:h-[124px] h-[64px] lg:p-8 p-4 zoom-img hover:border-primary-1 transition-300", href=partner.link, target='_blank', rel='noopener noreferrer')
+              img.lozad.undefined(src=(partner.photoUrl || '/img/default-customer.png'), data-src=(partner.photoUrl || '/img/default-customer.png'), alt=partner.title || 'Partner logo')
+          else
+            div(class="item-logo flex-center img-contain border border-neutral-100 lg:rem:h-[124px] h-[64px] lg:p-8 p-4 zoom-img hover:border-primary-1 transition-300")
+              img.lozad.undefined(src=(partner.photoUrl || '/img/default-customer.png'), data-src=(partner.photoUrl || '/img/default-customer.png'), alt=partner.title || 'Partner logo')

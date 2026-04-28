@@ -1,0 +1,18 @@
+- const customerBlock = block || data.customers || {}
+- const customerItems = customerBlock.items || []
+if customerItems.length > 0
+  section(class='section-home-customer section-py bg-[#F6F6F6] overflow-hidden !pb-0')
+    div(class='section-customer mb-[40px] xl:mb-20')
+      div(class='heading-1 text-center lg:mb-6 mb-[32px]')= customerBlock.title || ''
+      .wrap-slide-infinity
+        .swiper-column-auto.infinity
+          .swiper
+            .swiper-wrapper
+              each customer in customerItems
+                .swiper-slide
+                  if customer.link
+                    a.item-logo(href=customer.link, target='_blank', rel='noopener noreferrer')
+                      img.lozad.undefined(src=(customer.photoUrl || '/img/default-customer.png'), data-src=(customer.photoUrl || '/img/default-customer.png'), alt=customer.title || 'Customer logo')
+                  else
+                    .item-logo
+                      img.lozad.undefined(src=(customer.photoUrl || '/img/default-customer.png'), data-src=(customer.photoUrl || '/img/default-customer.png'), alt=customer.title || 'Customer logo')

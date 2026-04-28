@@ -1,0 +1,18 @@
+- const careerSession2Block = block || {};
+- const careerSession2Items = Array.isArray(careerSession2Block.items) ? careerSession2Block.items : [];
+if careerSession2Items.length > 0
+  section.section-career.section-solution.section-py-min(class='!pt-0')
+    .container
+      .title-32.mb-base.font-bold.font-secondary.text-center= careerSession2Block.title || ''
+      .swiper-column-auto.auto-3-column
+        .swiper
+          .swiper-wrapper
+            each item in careerSession2Items
+              .swiper-slide(class='!h-auto')
+                .item.flex.flex-col.rounded-6.gap-6.h-full.border.border-neutral-200(class='bg-[#FCD13A0D] rem:min-h-[336px] px-[16px] py-[24px] lg:p-10')
+                  .wrap
+                    .title.title-24.font-bold.mb-4= (item && item.title) ? item.title : ''
+                    .format-content.body-16
+                      != (item && item.descriptionHtml) ? item.descriptionHtml : ((item && item.description) ? item.description : '')
+                  .icon.img-h-full.mt-auto(class='clampRem:sq-[64px_64px]')
+                    img(src=((item && item.photoUrl) ? item.photoUrl : '') alt=((item && item.title) ? item.title : ''))

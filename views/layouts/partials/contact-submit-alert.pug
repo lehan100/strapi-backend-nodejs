@@ -1,0 +1,15 @@
+if contactSubmitMessage
+  script.
+    (function () {
+      var message = !{JSON.stringify(contactSubmitMessage)};
+      if (message) {
+        window.alert(message);
+      }
+
+      if (window.history && window.history.replaceState) {
+        var url = new URL(window.location.href);
+        url.searchParams.delete('contact_status');
+        var nextUrl = url.pathname + (url.search || '') + (url.hash || '');
+        window.history.replaceState({}, document.title, nextUrl);
+      }
+    })();

@@ -1,6 +1,106 @@
 extends ../layouts/default
 
 block content
-    main
-      .main-wrapper
-          h1 Contact Page
+  -
+    var pageTitle = (category && category.name) ? category.name : _('Liên hệ');
+    var breadcrumbItems = [{ name: pageTitle, url: '' }];
+    var termsHref = termsLink || '#';
+    var privacyHref = privacyLink || '#';
+
+  main
+    section(class='page-banner-main relative')
+      div(class='img img-ratio ratio:pt-[320_390] md:ratio:pt-[600_1920]')
+        img(src=((data && data.banner && data.banner.urlPhoto) ? data.banner.urlPhoto : '/img/1.jpg'), alt=pageTitle )
+      div(class='content container flex flex-col py-[40px] lg:py-10 absolute-center-x bottom-0 text-white')
+        h1(class='xl:rem:text-[72px] lg:text-[58px] text-[40px]')= pageTitle
+        include ./blocks/breadcrumb
+
+    section(class='section-contact section-py-min')
+      .container
+        div(class='row -md:flex-col-reverse -md:gap-y-10')
+          .col-lg-4
+            if data.info
+              - const info = data.info || {}
+              .box-white.box-contact-info.pb-5.border-b.border-neutral-200
+                .title-24.font-bold.leading-tight.mb-4= info.title
+                .ctn.flex.flex-col.gap-1.body-18
+                  != info.description 
+
+            .wrap-item-toggle.mb-base
+              - const addressItems = (data && Array.isArray(data.addressItems)) ? data.addressItems : [];
+              if addressItems.length > 0
+                each addressItem in addressItems
+                  .item-toggle
+                    .title= addressItem.title || ''
+                    .content
+                      if addressItem.address
+                        p= addressItem.address
+                      if addressItem.phone || addressItem.fax
+                        ul
+                          li
+                            if addressItem.phone
+                              p
+                                i.fa-solid.fa-phone
+                                span= addressItem.phone
+                            if addressItem.fax
+                              p
+                                i.fa-solid.fa-fax
+                                span= addressItem.fax
+            .wrap-box-content.space-y-4
+              - const cert = (data && data.certificationData) ? data.certificationData : null;
+              if cert && (cert.title || cert.titleRefix || (cert.items && cert.items.length))
+                p
+                  != cert.title || ''
+                p
+                  != cert.titleRefix || ''
+                .item.flex.items-center.gap-8
+                  .logo
+                    img(src=(cert.photoUrl || '/img/16.png'), alt='')
+                  .content.body-14
+                    if cert.items && cert.items.length > 0
+                      each certItem in cert.items
+                        if certItem.title
+                          p.text-neutral-500= certItem.title
+                        if certItem.code
+                          p
+                            strong= certItem.code
+          .col-lg-8
+            .popup-style-general.bg-neutral-50.w-full
+              .popup-title.heading-1= _('Thông tin liên hệ')
+              .popup-content
+                form.form-contact.form-style-general(method='post', action='/contact/submit')
+                  input(type='hidden', name='source', value='contact_page')
+                  .form-group
+                    input(type='text', name='fullname', placeholder=_('Họ và tên'), required='')
+                  .form-group
+                    input(type='text', name='company', placeholder=_('Tên công ty'))
+                  .form-group
+                    input(type='tel', name='phone', placeholder=_('Số điện thoại'), required='')
+                  .form-group
+                    input(type='email', name='email', placeholder=_('Email công việc'), required='')
+                  .form-group.col-span-form
+                    textarea(name='requirements', rows='4', placeholder=_('Hãy để chúng tôi hiểu hơn về nhu cầu..'))
+                  .form-group.col-span-form.hidden
+                    p.body-18= _('Bạn muốn tìm hiểu thêm về các dịch vụ của chúng tôi?')
+                  .form-group.col-span-form
+                    div(class='flex flex-col lg:gap-5 gap-[20px] hidden')
+                      each _service in [1,2,3,4,5]
+                        .form-checkbox
+                          label
+                            input(type='checkbox', name='services', value='Dịch vụ tính lương')
+                            p= _('Dịch vụ tính lương')
+                  .form-group.col-span-form
+                    .form-checkbox.term
+                      label
+                        input(type='checkbox', name='agree-terms', required='')
+                        p(class='-md:text-[12px]')
+                          span= _('Tôi đồng ý với ')
+                          a(href=termsHref)= _('Điều khoản sử dụng')
+                          span= _(' và ')
+                          a(href=privacyHref)= _('Chính sách bảo mật')
+                          span= _(' của HR2B.')
+                  .flex.col-span-form.justify-center
+                    button.btn.btn-primary(type='submit')
+                      span= _('Gửi ngay')
+                      .icon.custom-icon
+                        i.fa-light.fa-send

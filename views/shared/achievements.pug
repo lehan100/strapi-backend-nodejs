@@ -1,0 +1,23 @@
+- const achievementBlock = block || data.achievements || {}
+- const achievementItems = achievementBlock.items || []
+- const achievementIcon = achievementBlock.icon || 'arrow-up-right'
+if achievementItems.length > 0
+  section(class='section-home-about-achievement section-py !pt-3 !pb-0')
+    img(src='./img/edge-2.png', alt='' class='edge edge-1 dark:hidden')
+    img(src='./img/edge-2-darkmode.svg', alt='' class='edge edge-1 hidden dark:block')
+    div(class='wrap px-base xl:rem:px-[100px]')
+      .swiper-column-auto.auto-4-column.autoplay
+        .swiper
+          .swiper-wrapper
+            each achievement in achievementItems
+              .swiper-slide
+                div(class='item-achievement lg:rem:p-[24px] p-5 flex flex-col rem:gap-[30px]')
+                  .img
+                    img.lozad.undefined(src=(achievement.photoUrl || '/img/default-achievement.png'), data-src=(achievement.photoUrl || '/img/default-achievement.png'), alt=achievement.title_top || '')
+                  .title.text-right.body-18.font-bold
+                    p= achievement.title_top || null
+                  .flex.items-center.justify-between
+                    .number
+                      span.countup(data-number=achievement.count_up)= achievement.count_up || 0
+                      sup.suffix= achievement.count_text || '+'
+                    i(class=`fa-thin fa-${achievementIcon} lg:rem:text-[40px] text-[35px]`)

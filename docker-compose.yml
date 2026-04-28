@@ -1,0 +1,11 @@
+services:
+  frontend-app:
+    container_name: frontend-app
+    build: .
+    image: frontend-app:latest
+    restart: unless-stopped
+    environment:
+      PORT: 3100
+      STRAPI_BASE: https://strapi.webcanhcam.vn
+    ports:
+      - "3100:3100"

@@ -1,0 +1,17 @@
+- const careerSession3Block = block || {};
+- const careerSession3Items = Array.isArray(careerSession3Block.items) ? careerSession3Block.items : [];
+if careerSession3Items.length > 0
+  section.section-career.section-solution.section-py-min(class='!pt-0')
+    .container
+      .title-32.mb-base.font-bold.font-secondary.text-center= careerSession3Block.title || ''
+      .swiper-column-auto.auto-3-column
+        .swiper
+          .swiper-wrapper
+            each item in careerSession3Items
+              .swiper-slide(class='!h-auto')
+                .item.flex.flex-col.rounded-6.h-full.bg-neutral-100(class='lg:gap-6 gap-[24px] rem:min-h-[336px] p-[24px] lg:p-10')
+                  .icon.img-h-full(class='clampRem:sq-[60px_60px]')
+                    img(src=((item && item.photoUrl) ? item.photoUrl : '/img/13.png') alt=((item && item.title) ? item.title : ''))
+                  .title.title-32.text-primary-1.font-bold= (item && item.title) ? item.title : ''
+                  .format-content.body-16
+                    != (item && item.descriptionHtml) ? item.descriptionHtml : ((item && item.description) ? item.description : '')

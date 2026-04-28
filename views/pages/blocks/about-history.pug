@@ -1,0 +1,35 @@
+- const historyBlock = block || {};
+- const historyItems = Array.isArray(historyBlock.items) ? historyBlock.items : [];
+if historyItems.length > 0
+  section(class='section-about-3 section-py-min bg-neutral-50')
+    div(class='container')
+      div(class='text-center heading-1 mb-base')
+        = historyBlock.title || 'Lịch sử hình thành'
+      div(class='wrap-slide relative')
+        div(class='wrap-slide-main')
+          div(class='swiper')
+            div(class='swiper-wrapper')
+              each historyItem in historyItems
+                div(class='swiper-slide')
+                  div(class='item-slide-content')
+                    div(class='img-year')
+                      div(class='img img-ratio ratio:pt-[291_358]')
+                        img(class='lozad undefined', data-src=(historyItem.photoUrl || '/img/1.jpg'), alt=(historyItem.title || 'Lịch sử hình thành'))
+                      div(class='year')
+                        = historyItem.title || ''
+                    div(class='content-year')
+                      div(class='format-content body-18')
+                        p= historyItem.description || ''
+        div(class='wrap-slide-year')
+          div(class='swiper')
+            div(class='swiper-wrapper')
+              each historyItem in historyItems
+                div(class='swiper-slide')
+                  div(class='item-slide-year')
+                    div(class='year')
+                      = historyItem.title || ''
+                    div(class='line')
+                    div(class='dot')
+        div(class='wrap-button-slide')
+          div(class='btn btn-prev btn-sw-1')
+          div(class='btn btn-next btn-sw-1')

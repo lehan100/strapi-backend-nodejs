@@ -1,0 +1,128 @@
+extends ../layouts/default
+
+block content
+  style.
+    .pagination-news {
+      margin-top: 2rem;
+      gap: 0.5rem;
+    }
+    .pagination-news__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 42px;
+      height: 42px;
+      padding: 0 14px;
+      border: 1px solid #e5e7eb;
+      border-radius: 9999px;
+      background: #fff;
+      color: #111827;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1;
+      transition: all 0.2s ease;
+    }
+    .pagination-news__btn.is-nav {
+      padding: 0 16px;
+    }
+    .pagination-news__btn:hover {
+      border-color: #e42824;
+      color: #e42824;
+      background: #fff1f1;
+    }
+    .pagination-news__btn.is-active {
+      border-color: #e42824;
+      background: #e42824;
+      color: #fff;
+      box-shadow: 0 6px 14px rgba(228, 40, 36, 0.28);
+      pointer-events: none;
+    }
+
+  -
+    var pageTitle = (category && category.name) ? category.name : _('Tin tức');
+    var breadcrumbItems = [{ name: pageTitle, url: '' }];
+    var featureSlides = (data && Array.isArray(data.featuredItems)) ? data.featuredItems : [];
+    var postItems = (data && Array.isArray(data.postItems)) ? data.postItems : [];
+    var postPagination = (data && data.postPagination) ? data.postPagination : { page: 1, pageCount: 1, total: 0 };
+    var pageNumbers = [];
+    for (var pageNum = 1; pageNum <= (postPagination.pageCount || 1); pageNum += 1) pageNumbers.push(pageNum);
+    var formatDate = function (dateValue) {
+      if (!dateValue) return '';
+      var d = new Date(dateValue);
+      if (Number.isNaN(d.getTime())) return '';
+      var day = String(d.getDate()).padStart(2, '0');
+      var month = String(d.getMonth() + 1).padStart(2, '0');
+      var year = d.getFullYear();
+      return day + '/' + month + '/' + year;
+    };
+
+  main
+    section(class='page-banner-main relative')
+      div(class='img img-ratio ratio:pt-[320_390] md:ratio:pt-[600_1920]')
+        img(src=((data && data.banner && data.banner.urlPhoto) ? data.banner.urlPhoto : '/img/1.jpg'), alt=pageTitle )
+      div(class='content container flex flex-col py-[40px] lg:py-10 absolute-center-x bottom-0 text-white')
+        h1(class='xl:rem:text-[72px] lg:text-[58px] text-[40px]')= pageTitle
+        include ./blocks/breadcrumb
+
+    section.section-news-list.section-py-min
+      .container
+        .wrap
+          .form-style-general.mb-base.hidden
+            .form-group.form-select
+              select(name='', data-placeholder=_('Chọn'))
+                option(value='')= _('Chọn')
+                option(value='1')= _('Tất cả')
+                option(value='2')= _('Tin tức')
+                option(value='3')= _('Sự kiện')
+
+        if featureSlides.length > 0
+          .slide-news-feature.mb-base
+            .swiper-column-auto
+              .swiper
+                .swiper-wrapper
+                  each featuredItem in featureSlides
+                    .swiper-slide
+                      .item-news-featured.grid(class='md:grid-cols-2')
+                        .img.img-ratio.rounded-6.zoom-img(class='ratio:pt-[248_440]')
+                          img.lozad(src=(featuredItem.photoUrl || '/img/1.jpg'), alt=(featuredItem.name || ''))
+                        .content.flex.flex-col.justify-center(class='md:p-5 lg:p-10')
+                          .date-cate.flex.items-center(class='py-[16px] md:pt-4 md:pb-3')
+                            .date.body-16
+                              i.fa-light.fa-calendar.mr-2
+                              span= formatDate(featuredItem.createdAt)
+                            .dot.bg-neutral-950.rounded-full.mx-2.flex-shrink-0(class='rem:sq-[4px]')
+                            .cate.body-16.text-primary-1= featuredItem.categoryName || ''
+                          h2.title-32.line-clamp-3(class='hover:text-primary-1')
+                            a(href=(featuredItem.slug ? '/post/' + featuredItem.slug : ''))= featuredItem.name || ''
+                .swiper-pagination.pagination-style-primary-dot(class='pt-[32px] lg:pt-5')
+
+        .wrap-slide-news.grid.gap-base(class='md:grid-cols-2 lg:grid-cols-3')
+          if postItems.length > 0
+            each postItem in postItems
+              .item-news.flex.flex-col
+                a.img-ratio.rounded-6.zoom-img(class='ratio:pt-[248_440]', href=(postItem.slug ? '/post/' + postItem.slug : ''))
+                  img.lozad(src=(postItem.photoUrl || '/img/1.jpg'), alt=(postItem.name || ''))
+                .content.flex.flex-col
+                  .date-cate.flex.items-center.pt-4.pb-3
+                    .date.body-16
+                      i.fa-light.fa-calendar.mr-2
+                      span= formatDate(postItem.createdAt)
+                    .dot.bg-neutral-950.rounded-full.mx-2.flex-shrink-0(class='rem:sq-[4px]')
+                    .cate.body-16.text-primary-1= postItem.categoryName || _('Tin tức')
+                  .title.font-semibold.line-clamp-2.leading-snug.mb-2(class='lg:text-xl text-[20px]')
+                    a(href=(postItem.slug ? '/post/' + postItem.slug : ''))= postItem.name || ''
+                  .content.body-16.line-clamp-2= postItem.description || ''
+          else
+            .col-span-full.text-center.body-18= _('Chưa có bài viết nào.')
+
+        if postPagination.pageCount > 1
+          .pagination-news.flex.items-center.justify-center.gap-2.mt-8
+            if postPagination.page > 1
+              a.pagination-news__btn.is-nav(href='?page=' + (postPagination.page - 1))= _('Trước')
+            each number in pageNumbers
+              if number === postPagination.page
+                span.pagination-news__btn.is-active= number
+              else
+                a.pagination-news__btn(href='?page=' + number)= number
+            if postPagination.page < postPagination.pageCount
+              a.pagination-news__btn.is-nav(href='?page=' + (postPagination.page + 1))= _('Sau')

@@ -1,0 +1,73 @@
+- const managementBlock = block || {}
+- const managerItems = Array.isArray(managementBlock.items) ? managementBlock.items : []
+if managerItems.length > 0
+  section(class='section-about-5 section-py-min')
+    div(class='container')
+      div(class='text-center')
+        div(class='heading-1 mb-base')
+          = managementBlock.title || 'Đội ngũ quản lý - BOD'
+        div(class='grid lg:grid-cols-4 grid-cols-2 gap-[20px] lg:gap-base')
+          each manager, index in managerItems
+            - const popupId = `popup-employee-${manager.id || index}`
+            - const managerName = manager?.name || ''
+            - const managerRole = manager?.author || ''
+            - const managerImage = manager?.photoUrl || './img/1.jpg'
+            a(class='item-employee flex flex-col gap-3', data-fancybox='', data-src=`#${popupId}`)
+              div(class='img img-ratio ratio:pt-[193_169] rounded-3 zoom-img')
+                img(class='lozad undefined', data-src=managerImage, alt=managerName)
+              div(class='content flex flex-col gap-1 text-left')
+                div(class='body-18 font-semibold')
+                  = managerName
+                if managerRole
+                  div(class='body-16')
+                    = managerRole
+            div(class='hidden')
+              div(class='popup-employee popup-style-general', id=popupId)
+                div(class='popup-head')
+                  div(class='img')
+                    div(class='img-ratio ratio:pt-[136_119] rounded-3')
+                      img(class='lozad undefined', data-src= managerImage, alt='')
+                  div(class='wrap-content flex-1 flex flex-col gap-[12px] lg:gap-6')
+                    div(class='title lg:pb-6 pb-[12px] border-b border-neutral-50')
+                      div(class='body-18 font-semibold lg:rem:text-[24px]') Mr. Tom Vovers
+                      div(class='body-16') Chủ tịch
+                    div(class='content body-16')
+                      p
+                        strong Chuyên môn:
+                        |  Quản lý
+                      p
+                        strong Kinh nghiệm:
+                        |  22 năm
+                    div(class='share')
+                      p(class='clampRem:text-[12px_14px]') Chia sẻ
+                      ul
+                        li
+                          a(href='')
+                            img(src='./img/social/facebook.svg', alt='')
+                        li
+                          a(href='')
+                            img(src='./img/social/linked-in.svg', alt='')
+                        li
+                          a(href='')
+                            img(src='./img/social/zalo.svg', alt='')
+                div(class='popup-content format-content')
+                  p
+                    strong Gia nhập HR2B:
+                    | 2/2002
+                  p
+                    strong Kinh nghiệm:
+                    |  22 năm
+                  p Trình độ
+                  ul
+                    li Thạc sỹ Quản trị kinh doanh (MBA), Đại học Quản trị Henley, 2000
+                    li Thạc sỹ Quản trị kinh doanh (MBA), Đại học Quản trị Henley, 2000
+                    li Thạc sỹ Quản trị kinh doanh (MBA), Đại học Quản trị Henley, 2000
+                    li Thạc sỹ Quản trị kinh doanh (MBA), Đại học Quản trị Henley, 2000
+                    li Thạc sỹ Quản trị kinh doanh (MBA), Đại học Quản trị Henley, 2000
+                  hr
+                  p Sau khi tốt nghiệp tại Đại học Adelaide, Nam Úc, tôi làm việc tại BHP Steel, Whyalla trong lĩnh vực quan hệ lao động. Năm 1991, tôi chuyển đến trụ sở của công ty BHP Petrolium tại Melbourne để tích hợp nhân sự cho các doanh nghiệp Mỹ và Anh. Năm 1993, tôi đến thành phố Hồ Chí Minh với tư cách thành viên cho dự án mỏ Đại Hùng. Hai năm sau, tôi chuyển đến làm việc tại BHP Steel ở Rayong, Thái Lan trong vai trò giám đốc dự án cho một xưởng sản xuất thép mới. Năm 1997, tôi quay lại Việt Nam làm việc cho công ty British American Tobacco với vị trí Trưởng phòng Nguồn nhân lực và sau đó là Giám đốc Nguồn nhân lực cho khu vực. Năm 2000, tôi gia nhập KPMG và phụ trách Nguồn nhân lực cho khu vực và sau đó năm 2001 chuyển đến Singapore làm việc cho SAP Markets. Năm 2003, tôi trở lại Việt Nam và thành lập công ty HR2B.
+                  p Sau khi tốt nghiệp tại Đại học Adelaide, Nam Úc, tôi làm việc tại BHP Steel, Whyalla trong lĩnh vực quan hệ lao động. Năm 1991, tôi chuyển đến trụ sở của công ty BHP Petrolium tại Melbourne để tích hợp nhân sự cho các doanh nghiệp Mỹ và Anh. Năm 1993, tôi đến thành phố Hồ Chí Minh với tư cách thành viên cho dự án mỏ Đại Hùng. Hai năm sau, tôi chuyển đến làm việc tại BHP Steel ở Rayong, Thái Lan trong vai trò giám đốc dự án cho một xưởng sản xuất thép mới. Năm 1997, tôi quay lại Việt Nam làm việc cho công ty British American Tobacco với vị trí Trưởng phòng Nguồn nhân lực và sau đó là Giám đốc Nguồn nhân lực cho khu vực. Năm 2000, tôi gia nhập KPMG và phụ trách Nguồn nhân lực cho khu vực và sau đó năm 2001 chuyển đến Singapore làm việc cho SAP Markets. Năm 2003, tôi trở lại Việt Nam và thành lập công ty HR2B.
+                  p Sau khi tốt nghiệp tại Đại học Adelaide, Nam Úc, tôi làm việc tại BHP Steel, Whyalla trong lĩnh vực quan hệ lao động. Năm 1991, tôi chuyển đến trụ sở của công ty BHP Petrolium tại Melbourne để tích hợp nhân sự cho các doanh nghiệp Mỹ và Anh. Năm 1993, tôi đến thành phố Hồ Chí Minh với tư cách thành viên cho dự án mỏ Đại Hùng. Hai năm sau, tôi chuyển đến làm việc tại BHP Steel ở Rayong, Thái Lan trong vai trò giám đốc dự án cho một xưởng sản xuất thép mới. Năm 1997, tôi quay lại Việt Nam làm việc cho công ty British American Tobacco với vị trí Trưởng phòng Nguồn nhân lực và sau đó là Giám đốc Nguồn nhân lực cho khu vực. Năm 2000, tôi gia nhập KPMG và phụ trách Nguồn nhân lực cho khu vực và sau đó năm 2001 chuyển đến Singapore làm việc cho SAP Markets. Năm 2003, tôi trở lại Việt Nam và thành lập công ty HR2B.
+                  p Sau khi tốt nghiệp tại Đại học Adelaide, Nam Úc, tôi làm việc tại BHP Steel, Whyalla trong lĩnh vực quan hệ lao động. Năm 1991, tôi chuyển đến trụ sở của công ty BHP Petrolium tại Melbourne để tích hợp nhân sự cho các doanh nghiệp Mỹ và Anh. Năm 1993, tôi đến thành phố Hồ Chí Minh với tư cách thành viên cho dự án mỏ Đại Hùng. Hai năm sau, tôi chuyển đến làm việc tại BHP Steel ở Rayong, Thái Lan trong vai trò giám đốc dự án cho một xưởng sản xuất thép mới. Năm 1997, tôi quay lại Việt Nam làm việc cho công ty British American Tobacco với vị trí Trưởng phòng Nguồn nhân lực và sau đó là Giám đốc Nguồn nhân lực cho khu vực. Năm 2000, tôi gia nhập KPMG và phụ trách Nguồn nhân lực cho khu vực và sau đó năm 2001 chuyển đến Singapore làm việc cho SAP Markets. Năm 2003, tôi trở lại Việt Nam và thành lập công ty HR2B.
+                  p Sau khi tốt nghiệp tại Đại học Adelaide, Nam Úc, tôi làm việc tại BHP Steel, Whyalla trong lĩnh vực quan hệ lao động. Năm 1991, tôi chuyển đến trụ sở của công ty BHP Petrolium tại Melbourne để tích hợp nhân sự cho các doanh nghiệp Mỹ và Anh. Năm 1993, tôi đến thành phố Hồ Chí Minh với tư cách thành viên cho dự án mỏ Đại Hùng. Hai năm sau, tôi chuyển đến làm việc tại BHP Steel ở Rayong, Thái Lan trong vai trò giám đốc dự án cho một xưởng sản xuất thép mới. Năm 1997, tôi quay lại Việt Nam làm việc cho công ty British American Tobacco với vị trí Trưởng phòng Nguồn nhân lực và sau đó là Giám đốc Nguồn nhân lực cho khu vực. Năm 2000, tôi gia nhập KPMG và phụ trách Nguồn nhân lực cho khu vực và sau đó năm 2001 chuyển đến Singapore làm việc cho SAP Markets. Năm 2003, tôi trở lại Việt Nam và thành lập công ty HR2B.
+

@@ -1,6 +1,16 @@
 extends ../layouts/default
 
 block content
-    main
-      .main-wrapper
-          h1 Default Page
+  -
+    var pageTitle = (category && category.name) ? category.name : _('Chính sách');
+    var pageDescription = (category && category.description) ? category.description : '';
+
+  main
+    section(class='section-policy section-py')
+      .container
+        h1(class='heading-1 border-b border-b-primary-1 mb-base pb-5')= pageTitle
+        div(class='box-content format-content shadow-dropshadow-light p-[15px] lg:p-5')
+          if pageDescription
+            p= pageDescription
+          else
+            p= _('Nội dung đang được cập nhật.')

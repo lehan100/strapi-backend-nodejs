@@ -1,0 +1,44 @@
+- const eventBlock = block || data.events || {}
+- const eventItems = eventBlock.items || []
+if eventItems.length > 0
+  section(class="section-home-event section-py bg-[#F6F6F6]")
+    .container
+      .text-center.heading-1.mb-base= eventBlock.title || _('Sự kiện sắp diễn ra')
+      .wrap-slide.relative
+        .swiper-column-auto
+          .swiper
+            .swiper-wrapper
+              each event in eventItems
+                .swiper-slide
+                  div(class='item-event grid md:grid-cols-2 rounded-6 overflow-hidden')
+                    div(class='item-event-img img img-ratio pt-[75%] lg:ratio:pt-[480_700]')
+                      img.lozad.undefined(data-src=event.photoUrl, alt=(event.title || event.name))
+                    div(class='item-event-content flex flex-col xl:p-15 lg:p-10 md:p-6 bg-neutral-100 md:items-end md:text-right xl:gap-6 md:gap-3 xl:pl-20 gap-[20px] p-[24px]')
+                      div(class='date-event flex items-center py-1 xl:rem:h-[64px] px-6 gap-2 rounded-3 bg-neutral-200 text-primary-1 w-fit')
+                        div(class='lg:rem:text-[40px] text-[26px] font-bold font-secondary number')= event.eventDay
+                        .wrap-date.flex.flex-col.leading-none.items-start.text-left
+                          p(class='lg:rem:text-[12px] text-[9px] month')= event.eventMonthText
+                          p(class='lg:body-16 text-[13px] font-bold')= event.eventYear
+                      div(class='flex items-center md:text-[14px] body-18 xl:rem:text-[18px]')
+                        p= event.categoryName || _('Sự kiện')
+                        div(class='dot rem:sq-[4px] rounded-full bg-neutral-950 mx-2')
+                        p.event-time= event.eventStatusText || ''
+                      div(class='heading-1 xl:rem:text-[40px] lg:text-[30px] md:text-[20px] text-[21px] leading-tight')= event.title || event.name
+                      div(class='flex md:items-center lg:text-[14px] md:text-[12px] xl:rem:text-[18px] text-[14px ] -md:flex-col gap-y-3')
+                        p.date
+                          i.fa-solid.fa-clock.mr-2
+                          | #{_('Thời gian')}: #{event.event_time}
+                        div(class='line h-full mx-2 lg:mx-6 w-[1px] bg-[#818181] -md:hidden')
+                        p.location
+                          i.fa-solid.fa-location-dot.mr-2
+                          | #{_('Địa điểm')}: #{event.event_location}
+                      a.btn.btn-primary.mt-auto(href=("/event/" + event.slug))
+                        span= _('Đăng ký tham gia')
+                        .icon
+          .wrap-button-slide
+            .btn.btn-prev.btn-sw-1
+            .btn.btn-next.btn-sw-1
+        div(class='flex-center mt-[32px] md:hidden')
+          .btn.btn-primary.mt-auto
+            span= _('Đăng ký tham gia')
+            .icon

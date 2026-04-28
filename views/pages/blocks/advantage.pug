@@ -1,0 +1,21 @@
+- const advantageItems = Array.isArray(advantageBlock?.items) ? advantageBlock.items : [];
+if advantageItems.length > 0
+  section(class='section-about-1 section-py-min')
+    div(class='container')
+      div(class='wrap-slide-main')
+        div(class='swiper-column-auto auto-3-column progressbar')
+          div(class='swiper mb-base')
+            div(class='swiper-wrapper')
+              each item in advantageItems
+                div(class='swiper-slide')
+                  div(class='item-column flex flex-col clampRem:gap-[24px_24px]')
+                    if item.iconUrl
+                      img(class='icon clampRem:w-[60px_60px]', src=item.iconUrl, alt=(item.title || 'Ưu điểm'))
+                    div(class='title lg:rem:text-[24px] text-[20px] font-bold font-secondary border-b border-b-neutral-200 pb-3')
+                      = item.title || ''
+                    div(class='content body-16')
+                      p= item.content || ''
+          div(class='wrap-btn-progressbar flex items-center justify-between')
+            div(class='btn btn-prev btn-sw-1')
+            div(class='swiper-pagination style-primary-progressbar flex-1')
+            div(class='btn btn-next btn-sw-1')
